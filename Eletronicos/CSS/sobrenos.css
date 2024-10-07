@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+#barraMenu{
+    background: #333;
+    width: 100px;
+    height: 35px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+header {
+    background: #020101;
+    color: #ffffff;
+    padding: 0rem 0;
+    text-align: center;
+}
+
+header .logo  {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0rem 0;
+}
+
+nav ul li {
+    margin: 0 1rem;
+}
+
+nav ul li a:hover {
+    color: #6b67a7;
+    width: 100px;
+}
+
+nav ul li a {
+    color: #fdfdfd;
+    text-decoration: none;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 0px;
+    height: 120px;
+}
+.search-bar {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.search-bar form {
+    display: inline-block;
+}
+
+.search-bar input[type="text"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    width: 250px;
+}
+
+.search-bar button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #45a049;
+}
+.teste{
+    max-height: 1000px;
+    max-width: 1000px;
+    padding-top: 14% ;
+    padding-left: 25px;
+    padding-right: 100px;
+    text-align: left;
+}
+.banner {
+    background: #cac4c4;
+    padding: 1rem;
+    text-align: left;
+   
+}
+.banner p {
+    margin-bottom: 5rem;
+    margin-left: 30px;
+    
+}
+
+

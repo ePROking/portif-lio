@@ -1,0 +1,875 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: whitesmoke;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(20px); /* Começa 20px abaixo do seu ponto original */
+        opacity: 0; /* Começa invisível */
+    }
+    100% {
+        transform: translateY(0); /* Move para sua posição original */
+        opacity: 1; /* Fica totalmente visível */
+    }
+}
+
+.cabecalho {
+    position: fixed;
+    top: 0;
+    height: auto;
+    z-index: +1;
+    background-color: white;
+}
+
+.cabeca {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: +1;
+    border-bottom: solid 0.7px black;
+}
+
+.responsa {
+    display: contents;
+}
+
+.nome {
+    width: 300px;
+    
+}
+
+.nome h2 {
+    font-family: Edu Australia VIC WA NT ;
+}
+
+.navegador {
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+}
+
+#unique {
+    color: blue;
+}
+
+.navegador a {
+    text-decoration: none;
+    color: black;
+}
+
+.navegador a:hover {
+    transform: scale(1.1);
+    transition: 0.9s ease;
+}
+
+.navegador a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0.5px;
+    background-color: black; /* Cor da borda */
+    transition: width 0.7s ease-out;
+}
+
+.navegador a:hover::after {
+    width: 100%; /* Quando passar o mouse, expande a borda */
+}
+
+.outro {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.outro .eu a {
+    text-decoration: none;
+    color: blue;    
+}
+
+.outro .eu {
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Largura, altura, desfoque e cor */
+    border: none;
+}
+
+.outro .projet {
+    background-color: blue;
+    border: none;
+}
+
+.outro .projet a {
+    text-decoration: none;
+    color: white;
+}
+
+.outro .projet:hover{
+    color: blue;
+    background-color: white;
+}
+
+.outro .projet a:hover{
+    color: blue;
+    
+}
+
+.outro .eu a:hover{
+    color: white;
+}
+
+.outro .eu:hover{
+    background-color: blue;
+}
+
+.outro button {
+    width: 90px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.outro button:hover {
+    transform: scale(1.1);
+    transition: 0.7s ease;
+    box-shadow: 5px 5px 5px 5px rgba(0.2, 0.2, 0.2, 0.2); /* Largura, altura, desfoque e cor */
+}
+
+@media (max-width: 710px) {
+    .responsa {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .responsa > div {
+      width: 100%;
+    }
+    .outro {
+        width: 200px;
+        display: flex;
+        
+    }
+}
+
+main {
+    margin-top: 100px;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.parte {
+    height: 900px;
+    border-bottom: solid 1px black;
+    
+}   
+
+#sobre {
+    height: 1200px;
+}
+
+.parte {
+    background-image: url(../img/um\ cara\ de\ pele\ moreno\ com\ olhos\ pretos\ \(1\).jpeg);
+    background-size: cover;
+    text-align: center;
+    align-content: center;
+    width: 99.2vw;
+}
+
+
+
+#sobre h2 span{
+    color: white;
+}     
+
+#sobre .tem {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 190; /* Fonte bem leve */
+    font-size: 16px;
+    color: white; /* Cor branca com 50% de opacidade */
+    padding: 20px;
+    
+}
+
+.ver {
+    gap: 50px;
+}
+
+.verei {
+    width: 90px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+}
+
+.verei a {
+    color: black;
+    text-decoration: none;
+}
+
+.ver button:hover {
+    transform: scale(1.08);
+    transition: 0.7s ease;
+}
+
+.veras {
+    background: transparent;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: none;
+    width: 90px;
+    height: 40px;
+    border-radius: 5px;
+    backdrop-filter: blur(10px);
+}
+
+.veras a {
+    color: white;
+    text-decoration: none;
+}
+
+.descri {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 250px;
+    background-color: white;
+    
+
+}
+
+.descri div {
+    width: 50%;
+}
+
+@media (max-width: 480px) {
+    .descri {
+        display: flex;
+        flex-direction: column;
+    }
+    .descri p {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+.descri h1 {
+    color: black;
+}
+
+#skills {
+    background-color: whitesmoke;
+    min-height: 450px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 50px;
+    padding: 50px;
+    gap: 20px;
+}
+
+#skills div img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    padding-right: 20px;
+}
+
+#skills .tec-tec {
+    width: 500px;
+}
+
+/* Responsividade para smartphones */
+@media (max-width: 600px) {
+    #skills {
+        flex-direction: column; /* Empilha os itens verticalmente */
+        padding: 10px;
+    }
+
+    #skills div img {
+        max-width: 100%; /* A imagem ocupa toda a largura disponível */
+        padding-right: 0;
+        margin: 0 auto; /* Centraliza a imagem horizontalmente */
+        align-content: center;
+    }
+
+    #skills .tec-tec {
+        width: 100%; /* O texto ocupa toda a largura */
+        text-align: left; /* Alinha o texto à esquerda */
+    }
+}
+
+/* Responsividade para tablets */
+@media (min-width: 601px) and (max-width: 1024px) {
+    #skills {
+        flex-direction: column; /* Empilha os itens verticalmente */
+        
+    }
+
+    #skills div img {
+        max-width: 90%; /* A imagem ocupa 80% da largura */
+        
+        align-content: center;
+    }
+
+    #skills .tec-tec {
+        width: 80%; /* O texto ocupa 80% da largura */
+        text-align: left; /* Alinha o texto à esquerda */
+    }
+}
+
+#projetos {
+    padding: 80px;
+    background-color: black;
+}
+
+#projetos h1{
+    display: flex; /* Ativa o Flexbox */
+    justify-content: center; /* Alinha os itens horizontalmente ao centro */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+    flex-direction: column; /* Empilha os elementos verticalmente */   
+}
+
+#projetos  span {
+    color: white;
+}
+
+#projetos h3 {
+    color: white;
+}
+
+#projetos ul  {
+    color: white;
+}
+
+#projetos p {
+    color: white;
+}
+
+.images-projets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colunas em desktop */
+    gap: 20px; /* Espaçamento entre as imagens */
+    padding: 20px;
+}
+
+.images-projets a {
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.images-projets img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.images-projets a:hover img {
+    transform: scale(1.5) !important;
+    transition: 0.9s ease; /* Efeito de zoom ao passar o mouse */
+}
+
+.images-projets video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.images-projets video:hover {
+    transform: scale(1.5) !important;
+    transition: 0.9s ease;
+}
+
+/* Para telas de tablet (menores que 1024px) */
+@media (max-width: 800px) {
+    #projetos {
+        width: 100%;
+        padding-left: 0%;
+    }
+    .images-projets img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .images-projets {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
+        width: 100%;
+        margin-right: 15px;
+        gap: 10px;
+    }
+    #projetos p {
+        margin: 5px;
+    }
+    #projetos h3 {
+        margin: 5px;
+    }
+}
+
+/* Para telas de smartphones (menores que 600px) */
+@media (max-width: 500px) {
+    .images-projets {
+        grid-template-columns: 1fr; /* 1 coluna em smartphones */
+    }
+    .images-projets img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .images-projets img {
+        max-height: 300px; /* Limita a altura das imagens */
+    }
+}
+
+.tecnologia-usada {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 90px;
+}
+
+.tecnologia-usada h1 {
+    color: white;
+    text-align: left;
+}
+
+.tecnologia-usada p {
+    width: 40%;
+    text-align: justify;
+}
+
+.ferramentas {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem em várias linhas */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    padding: 20px; /* Espaçamento interno da seção */
+    gap: 20px; /* Espaçamento entre os itens */
+    background-color: black; /* Cor de fundo da seção */
+    margin-bottom: none;
+}
+
+.linguagem {
+    flex: 1 1 calc(30% - 20px); /* Ajusta a largura com base no tamanho da tela */
+    background: black; /* Cor de fundo dos itens */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para os itens */
+    padding: 15px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto dentro de cada item */
+    transition: transform 0.3s ease; /* Transição suave para o efeito de hover */
+}
+
+.linguagem:hover {
+    transform: translateY(-5px); /* Efeito de levitar ao passar o mouse */
+}
+
+.linguagem img {
+    max-width: 100%; /* Garante que a imagem não exceda a largura do contêiner */
+    height: auto; /* Mantém a proporção da imagem */
+    border-radius: 4px; /* Bordas arredondadas na imagem */
+}
+
+.linguagem h2 {
+    font-size: 24px; /* Tamanho da fonte do título */
+    margin: 10px 0; /* Margem acima e abaixo do título */
+    color: white;
+    text-align: left;
+}
+
+.linguagem p {
+    font-size: 16px; /* Tamanho da fonte do texto */
+    color: #555; /* Cor do texto */
+    text-align: justify;
+}
+
+.linguagem button a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.linguagem button {
+    background-color: black;
+    border-radius: 5px;
+    align-items: left;
+    border-top: 0.5px solid rgb(196, 196, 196);
+    border-right: 0.5px solid rgb(196, 196, 196);
+    border-bottom: 0.5px solid rgb(196, 196, 196);
+    border-left: none;
+    width: 90px;
+    height: 40px;
+    margin-left: 0%;
+}
+
+.linguagem button:hover {
+    background-color: rgb(0, 0, 0);
+    border-top: 1px solid white;
+    border-right: 0.5px solid white;
+    border-bottom: 1px solid white;
+    transform: scale(1.1);
+    transition: 0.7s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .linguagem {
+        flex: 1 1 calc(45% - 20px); /* 2 colunas em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .linguagem {
+        flex: 1 1 100%; /* 1 coluna em telas muito pequenas */
+    }
+    .tecnologia-usada {
+        display: flex;
+        flex-direction: column;
+    }
+    .tecnologia-usada p {
+        width: 100%;
+    }
+}
+
+#blog {
+    width: 100%;
+    height: auto;
+    background-color: whitesmoke;
+}
+
+#blog h1 {
+    text-align: center;
+    padding-top: 40px;
+}
+
+#blog p {
+    text-align: center;
+}
+
+/* Estilos principais para telas grandes */
+.container-mai {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3%;
+    padding: 20px;
+}
+
+.fidju {
+    background-color: blue;
+    border-radius: 9px;
+    padding: 9px;
+    overflow: hidden;
+    color: whitesmoke;
+    height: auto;
+}
+
+.fidju:hover {
+    transform: scale(1.07) !important;
+    transition: 0.5s ease-in-out;
+}
+
+.strelas {
+    margin-top: -2px;
+    display: flex;
+}
+
+.fidju section img {
+    margin-bottom: 2px;
+    width: 25px;
+}
+
+.fidju p {
+    margin-top: 0px;
+    text-align: justify;
+}
+
+.netu {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.busnetu {
+    line-height: 1;
+}
+
+.busnetu h2 {
+    margin: 0;
+    color: whitesmoke;
+}
+
+.netu img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Responsividade para tablets */
+@media (max-width: 880px) {
+    .container-mai {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
+    }
+    .fidju {
+        height: auto;
+    }
+}
+
+/* Responsividade para smartphones */
+@media (max-width: 500px) {
+    .container-mai {
+        grid-template-columns: 1fr; /* 1 coluna em smartphones */
+    }
+    .fidju {
+        height: 230px;
+    }
+}
+
+#insights {
+    background-color: black;
+    height: auto;
+    width: 100%;
+    padding-top: 15px;
+}
+
+#insights h1 {
+    color: whitesmoke;
+    text-align: center; /* Centraliza o título */
+    margin-top: 30px;
+}
+
+.header-insights p {
+    color: whitesmoke;
+    align-items: left;
+    width: 70%;
+    margin-left: 2%;
+}
+
+.header-insights {
+    display: flex;
+    justify-content: space-between; /* Alinha o texto e o botão nas extremidades */
+    flex-wrap: wrap; /* Permite que os itens se movam para uma nova linha em telas menores */
+    margin-bottom: 20px; /* Espaço abaixo do cabeçalho */
+}
+
+.header-insights button {
+    width: 90px;
+    height: 30px;
+    background-color: rgb(0, 0, 0);
+    border-top: 0.5px solid rgb(196, 196, 196);
+    border-right: 0.5px solid rgb(196, 196, 196);
+    border-bottom: 0.5px solid rgb(196, 196, 196);
+    border-left: none;
+    border-radius: 5px;
+    margin-right: 3%;
+    cursor: pointer; /* Muda o cursor ao passar o mouse sobre o botão */
+}
+
+.header-insights button a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.header-insights button:hover {
+    background-color: rgb(34, 34, 34);
+    transition: 0.7s ease;
+    transform: scale(1.09);
+}
+
+.son-insights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px; /* Aumenta o espaço entre os itens */
+}
+
+.latest {
+    display: flex;
+    background-color: rgb(53, 50, 50);
+    border-radius: 5px; /* Bordas arredondadas */
+    /* Para garantir que as imagens não saiam do contêiner */
+    width: 90%;
+    height: auto;
+    margin: 5%;
+    transition: transform 0.3s; /* Adiciona uma transição ao hover */
+}
+
+.latest:hover {
+    transform: scale(1.02); /* Leve aumento ao passar o mouse */
+}
+
+.latest .image {
+    width: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+      
+}
+
+.latest img {
+    width: 100%;
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.son-latest {
+    width: 30%; /* Ajustado para preencher o restante do espaço */
+    padding-left: 35px;
+}
+
+.son-latest p,
+.son-latest h3 {
+    color: whitesmoke;
+}
+
+.latest img:hover {
+    transform: scale(1.3);
+    transition: 0.7s ease;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .header-insights {
+        flex-direction: column; /* Alinha verticalmente em telas menores */
+        align-items: center; /* Centraliza os itens */
+    }
+
+    .header-insights p {
+        width: 100%; /* Faz o parágrafo ocupar toda a largura disponível */
+        margin: 0; /* Remove a margem esquerda para alinhamento perfeito */
+        text-align: center; /* Centraliza o texto */
+    }
+
+    .son-insights {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+
+    .latest {
+        width: 90%; /* Ajusta a largura dos itens em telas menores */
+        margin: 10px 0; /* Margem superior e inferior */
+    }
+
+    .latest img {
+        width: 100%; /* A imagem ocupa toda a largura do contêiner */
+    }
+
+    .son-latest {
+        width: 100%; /* Faz o texto ocupar toda a largura disponível */
+    }
+}
+
+@media (max-width: 480px) {
+    #insights {
+        padding: 10px; /* Reduz o padding em telas muito pequenas */
+    }
+
+    .header-insights button {
+        width: 80%; /* Botão ocupa mais espaço em telas menores */
+        margin: 10px 0; /* Margem superior e inferior */
+    }
+}
+
+@media (max-width: 768px) {
+    .header-insights {
+        flex-direction: column; /* Alinha verticalmente em telas menores */
+        align-items: center; /* Centraliza os itens */
+    }
+
+    .header-insights p {
+        width: 100%; /* Faz o parágrafo ocupar toda a largura disponível */
+        margin: 0; /* Remove a margem esquerda para alinhamento perfeito */
+        text-align: center; /* Centraliza o texto */
+    }
+
+    .son-insights {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    #insights {
+        padding: 10px; /* Reduz o padding em telas muito pequenas */
+    }
+
+    .header-insights button {
+        width: 80%; /* Botão ocupa mais espaço em telas menores */
+        margin: 10px 0; /* Margem superior e inferior */
+    }
+
+    .latest {
+        margin: 2%; /* Reduz a margem para se ajustar melhor em telas pequenas */
+        flex-direction: column; /* Alinha imagem e texto verticalmente */
+        width: auto; /* Remove a largura fixa */
+    }
+
+    .latest img {
+        width: 100%; /* A imagem ocupa toda a largura do contêiner */
+    }
+
+    .son-latest {
+        width: 100%; /* Faz o texto ocupar toda a largura disponível */
+    }
+}
+
+
+footer {
+    background-color: white;
+    height: 290px;
+    align-content: center;
+}
+
+.footer-1 {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.footer-1 h3{
+    width: 300px;
+    margin-left: 2%;
+}
+
+.nav-footer {
+    width: 700px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-footer a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-footer a:hover{
+    transform: scale(1.2);
+    transition: 0.7s ease;
+}
+
+.icon-footer {
+    margin-top: 20px;
+    width: 150px;
+    align-content: right;
+}
+
+.icon-footer img {
+    margin-left: 10px; 
+}
+
+.icon-footer img:hover {
+    transform: scale(1.5);
+    transition: 0.7s ease-in-out;
+}
+
+.linha {
+    width: 84%;
+    border: none; /* Remove a borda padrão */
+    border-bottom: 2px solid black; /* Adiciona a linha */
+    margin: auto auto; /* Centraliza horizontalmente */
+}
+.footer-2 p {
+    text-align: center;
+}

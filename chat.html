@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-color: white;
+        }
+
+        .cabecalho {
+            position: fixed;
+            top: 0;
+            height: 100px;
+            z-index: 1;
+            background-color: white;
+            width: 100%;
+        }
+
+        .cabeca {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100px;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .nome {
+            width: 300px;
+        }
+
+        .navegador {
+            display: flex;
+            justify-content: space-around;
+            width: 300px;
+        }
+
+        .navegador a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .navegador a:hover {
+            transform: scale(1.1);
+            transition: 0.9s ease;
+        }
+
+        .navegador a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 0.5px;
+            background-color: black;
+            transition: width 0.7s ease-out;
+        }
+
+        .navegador a:hover::after {
+            width: 100%;
+        }
+
+        .outro {
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+        }
+
+        .outro .eu a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        .outro .eu {
+            background-color: white;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+            border: none;
+        }
+
+        .outro .projet {
+            background-color: blue;
+            border: none;
+        }
+
+        .outro .projet a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .outro button {
+            width: 90px;
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .outro button:hover {
+            transform: scale(1.1);
+            transition: 0.7s ease;
+        }
+
+        main {
+            margin-top: 100px;
+            align-items: center;
+            width: 100%;
+            flex-direction: column;
+        }
+
+        .parte {
+            height: 600px;
+            border-bottom: solid 1px black;
+        }
+
+        #sobre {
+            height: 900px;
+            background-image: url('img/background-image.jpg'); /* Coloque o caminho da sua imagem aqui */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+            align-content: center;
+            width: 100vw;
+        }
+
+        #sobre h2 {
+            color: white;
+        }
+
+        #sobre .tem {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 190;
+            font-size: 16px;
+            color: white;
+            padding: 20px;
+        }
+
+        .ver {
+            gap: 50px;
+        }
+
+        .verei {
+            width: 90px;
+            height: 40px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .verei a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .ver button:hover {
+            transform: scale(1.08);
+            transition: 0.7s ease;
+        }
+
+        .veras {
+            background: transparent;
+            border: solid 0.7px 0px 0.7px white;
+            width: 90px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        .veras a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .descri {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 250px;
+        }
+
+        .descri div {
+            width: 50%;
+        }
+
+        .descri h1 {
+            color: black;
+        }
+
+        #skills {
+            background-color: whitesmoke;
+            min-height: 450px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-top: 50px;
+            padding: 50px;
+            gap: 20px;
+        }
+
+        #skills div img {
+            width: 500px;
+            height: auto;
+            align-items: center;
+            padding-right: 20px;
+        }
+
+        #skills .tec-tec {
+            width: 500px;
+        }
+
+        /* Responsividade para smartphones */
+        @media (max-width: 600px) {
+            .cabeca {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+
+            .navegador {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .outro {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            #skills div img {
+                width: 100%;
+            }
+
+            #skills .tec-tec {
+                width: 100%;
+            }
+        }
+
+        /* Responsividade para tablets */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .cabeca {
+                flex-direction: column;
+                height: auto;
+                padding: 10px;
+            }
+
+            .navegador {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .outro {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            #skills div img {
+                width: 100%;
+            }
+
+            #skills .tec-tec {
+                width: 100%;
+            }
+        }
+
+        /* Para telas grandes (PCs) */
+        @media (min-width: 1025px) {
+            .cabeca {
+                flex-direction: row;
+            }
+
+            .navegador {
+                width: 300px;
+            }
+
+            .outro {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cabecalho"></div>
+    <header class="cabeca">
+        <div class="nome">
+            <h2>Evinilson Ferreira</h2>
+        </div>
+        <nav class="navegador">
+            <a href="#sobre">About Me</a>
+            <a href="#skills">Skills</a>
+            <a href="#projetos">Projects</a>
+            <a href="#blog">Blog</a>
+        </nav>
+        <div class="outro">
+            <button class="eu"><a href="#">Contact Me</a></button>
+            <button class="projet"><a href="#">View Projects</a></button>
+        </div>
+    </header>
+    <main>
+        <section id="sobre">
+            <div class="parte">
+                <h2><span>Olá, sou eu Evinilson</span></h2>
+                <div>
+                    <p class="tem">Sou um desenvolvedor full stack com uma sólida base em programação...</p>
+                </div>
+                <div class="ver">
+                    <button class="verei"><a href="">Ver Portfólio</a></button>
+                    <button class="veras"><a href="">Sobre Mim</a></button>
+                </div>
+            </div>
+            <div class="descri">
+                <h1>About Evinilson Ferreira</h1>
+                <div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+                </div>
+            </div>
+        </section>
+        <section id="skills">
+            <div class="tec-tec">
+                <h1>Technical Skills</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+            </div>
+            <div>
+                <img src="img/uma imagem de um caça f-22 raptor.png" alt="">
+            </div>
+        </section>
+        <section id="projetos">
+            <h1>Projects</h1>
+        </section>
+        <section id="blog">
+            <h1>Blog</h1>
+        </section>
+    </main>
+</body>
+</html>

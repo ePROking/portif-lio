@@ -1,0 +1,420 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(20px); /* Começa 20px abaixo do seu ponto original */
+        opacity: 0; /* Começa invisível */
+    }
+    100% {
+        transform: translateY(0); /* Move para sua posição original */
+        opacity: 1; /* Fica totalmente visível */
+    }
+}
+
+.cabecalho {
+    position: fixed;
+    top: 0;
+    height: 100px;
+    z-index: +1;
+    background-color: white;
+}
+
+.cabeca {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: +1;
+    border-bottom: solid 0.7px black;
+}
+
+.responsa {
+    display: contents;
+}
+
+.nome {
+    width: 300px;
+    
+}
+
+.navegador {
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+}
+
+#unique {
+    color: blue;
+}
+
+.navegador a {
+    text-decoration: none;
+    color: black;
+}
+
+.navegador a:hover {
+    transform: scale(1.1);
+    transition: 0.9s ease;
+}
+
+.navegador a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0.5px;
+    background-color: black; /* Cor da borda */
+    transition: width 0.7s ease-out;
+}
+
+.navegador a:hover::after {
+    width: 100%; /* Quando passar o mouse, expande a borda */
+}
+
+.outro {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.outro .eu a {
+    text-decoration: none;
+    color: blue;    
+}
+
+.outro .eu {
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Largura, altura, desfoque e cor */
+    border: none;
+}
+
+.outro .projet {
+    background-color: blue;
+    border: none;
+}
+
+.outro .projet a {
+    text-decoration: none;
+    color: white;
+}
+
+.outro .projet:hover{
+    color: blue;
+    background-color: white;
+}
+
+.outro .projet a:hover{
+    color: blue;
+    
+}
+
+.outro .eu a:hover{
+    color: white;
+}
+
+.outro .eu:hover{
+    background-color: blue;
+}
+
+.outro button {
+    width: 90px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.outro button:hover {
+    transform: scale(1.1);
+    transition: 0.7s ease;
+    box-shadow: 5px 5px 5px 5px rgba(0.2, 0.2, 0.2, 0.2); /* Largura, altura, desfoque e cor */
+}
+
+@media (max-width: 710px) {
+    .responsa {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .responsa > div {
+      width: 100%;
+    }
+    .outro {
+        width: 200px;
+        display: flex;
+        
+    }
+}
+
+main {
+    margin-top: 100px;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+    padding-top: 30px;
+}
+
+main h1 {
+    text-align: center;
+}
+
+main p {
+    text-align: center;
+}
+
+main section h1 {
+    text-align: left;
+    margin-left: 2%;
+    color: rgb(46, 46, 46);
+}
+
+.header-insights p {
+    text-align: left;
+    color: rgb(0, 0, 0);
+    align-items: left;
+    width: 70%;
+    margin-left: 2%;
+}
+
+.header-insights {
+    display: flex;
+    justify-content: space-between; /* Alinha o texto e o botão nas extremidades */
+    flex-wrap: wrap; /* Permite que os itens se movam para uma nova linha em telas menores */
+    margin-bottom: 20px; /* Espaço abaixo do cabeçalho */
+}
+
+.header-insights button {
+    width: 90px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    border-top: 0.5px solid rgb(196, 196, 196);
+    border-right: 0.5px solid rgb(196, 196, 196);
+    border-bottom: 0.5px solid rgb(196, 196, 196);
+    border-left: none;
+    border-radius: 5px;
+    margin-right: 3%;
+    cursor: pointer; /* Muda o cursor ao passar o mouse sobre o botão */
+}
+
+.header-insights button a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.header-insights button:hover {
+    background-color: rgb(231, 231, 231);
+    transition: 0.7s ease;
+    transform: scale(1.08);
+}
+
+.son-insights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px; /* Aumenta o espaço entre os itens */
+}
+
+.latest {
+    display: flex;
+    background-color: rgb(53, 50, 50);
+    border-radius: 5px; /* Bordas arredondadas */
+    /* Para garantir que as imagens não saiam do contêiner */
+    width: 90%;
+    height: auto;
+    margin: 5%;
+    transition: transform 0.3s; /* Adiciona uma transição ao hover */
+}
+
+.latest:hover {
+    transform: scale(1.02); /* Leve aumento ao passar o mouse */
+}
+
+.latest .image {
+    width: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
+}
+
+.latest .image img {
+    width: 100%;
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.latest .image video {
+    width: 500px;
+}
+
+.son-latest {
+    width: 30%; /* Ajustado para preencher o restante do espaço */
+    padding-left: 35px;
+}
+
+.son-latest p,
+.son-latest h3 {
+    color: whitesmoke;
+    text-align: left;
+}
+
+.latest img:hover {
+    transform: scale(1.3);
+    transition: 0.7s ease;
+}
+
+.latest video:hover {
+    transform: scale(1.3);
+    transition: 0.7s ease;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .header-insights {
+        flex-direction: column; /* Alinha verticalmente em telas menores */
+        align-items: center; /* Centraliza os itens */
+    }
+
+    .header-insights p {
+        width: 100%; /* Faz o parágrafo ocupar toda a largura disponível */
+        margin: 0; /* Remove a margem esquerda para alinhamento perfeito */
+        text-align: center; /* Centraliza o texto */
+    }
+
+    .son-insights {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+
+    .latest {
+        width: 90%; /* Ajusta a largura dos itens em telas menores */
+        margin: 10px 0; /* Margem superior e inferior */
+    }
+
+    .latest img {
+        width: 100%; /* A imagem ocupa toda a largura do contêiner */
+    }
+
+    .son-latest {
+        width: 100%; /* Faz o texto ocupar toda a largura disponível */
+    }
+}
+
+@media (max-width: 480px) {
+    #insights {
+        padding: 10px; /* Reduz o padding em telas muito pequenas */
+    }
+
+    .header-insights button {
+        width: 80%; /* Botão ocupa mais espaço em telas menores */
+        margin: 10px 0; /* Margem superior e inferior */
+    }
+}
+
+@media (max-width: 768px) {
+    .header-insights {
+        flex-direction: column; /* Alinha verticalmente em telas menores */
+        align-items: center; /* Centraliza os itens */
+    }
+
+    .header-insights p {
+        width: 100%; /* Faz o parágrafo ocupar toda a largura disponível */
+        margin: 0; /* Remove a margem esquerda para alinhamento perfeito */
+        text-align: center; /* Centraliza o texto */
+    }
+
+    .son-insights {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    #insights {
+        padding: 10px; /* Reduz o padding em telas muito pequenas */
+    }
+
+    .header-insights button {
+        width: 80%; /* Botão ocupa mais espaço em telas menores */
+        margin: 10px 0; /* Margem superior e inferior */
+    }
+
+    .latest {
+        margin: 2%; /* Reduz a margem para se ajustar melhor em telas pequenas */
+        flex-direction: column; /* Alinha imagem e texto verticalmente */
+        width: auto; /* Remove a largura fixa */
+    }
+
+    .latest img {
+        width: 100%; /* A imagem ocupa toda a largura do contêiner */
+    }
+
+    .son-latest {
+        width: 100%; /* Faz o texto ocupar toda a largura disponível */
+    }
+}
+
+
+footer {
+    background-color: white;
+    height: 290px;
+    align-content: center;
+}
+
+.footer-1 {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.footer-1 h3{
+    width: 300px;
+    margin-left: 2%;
+}
+
+.nav-footer {
+    width: 700px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-footer a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-footer a:hover{
+    transform: scale(1.2);
+    transition: 0.7s ease;
+}
+
+.icon-footer {
+    margin-top: 20px;
+    width: 150px;
+    align-content: right;
+}
+
+.icon-footer img {
+    margin-left: 10px; 
+}
+
+.icon-footer img:hover {
+    transform: scale(1.5);
+    transition: 0.7s ease-in-out;
+}
+
+.linha {
+    width: 84%;
+    border: none; /* Remove a borda padrão */
+    border-bottom: 2px solid black; /* Adiciona a linha */
+    margin: auto auto; /* Centraliza horizontalmente */
+}
+.footer-2 p {
+    text-align: center;
+}

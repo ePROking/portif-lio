@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-image: url(./img/uma\ imagem\ de\ um\ caça\ f-22\ raptor.png);
+            background-size: cover;
+            position: relative;
+            background-position: center;
+            text-align: center;
+            padding: 100px 0;
+            height: 60vh;
+            
+        }
+
+       
+        
+        header .intro h1 {
+            font-size: 2.5em;
+        }
+        
+        header .intro p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        section {
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        #services, #projects, #clients {
+            background-color: #f4f4f4;
+            padding: 50px 0;
+        }
+        
+        .service, .project, .client-logo {
+            margin: 20px;
+            display: inline-block;
+        }
+        
+        .project img, .client-logo img {
+            width: 150px;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .project img:hover, .client-logo img:hover {
+            transform: scale(1.1);
+        }
+        
+        form input, form textarea {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+        }
+        
+        form button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        form button:hover {
+            background-color: #555;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Seção de perfil -->
+    <header id="profile">
+        <div class="intro">
+            <h1>Seu Nome</h1>
+            <p>Desenvolvedor | Designer | Empreendedor</p>
+        </div>
+    </header>
+
+    <!-- Seção de serviços -->
+    <section id="services">
+        <h2>Meus Serviços</h2>
+        <div class="services-list">
+            <div class="service">
+                <h3>Desenvolvimento Web</h3>
+                <p>Criação de sites responsivos e modernos.</p>
+            </div>
+            <div class="service">
+                <h3>Design Gráfico</h3>
+                <p>Projetos gráficos criativos e impactantes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de projetos -->
+    <section id="projects">
+        <h2>Meus Projetos</h2>
+        <div class="projects-gallery">
+            <div class="project">
+                <img src="img/um cara bonito e estiloso (1).jpeg" alt="Projeto 1">
+                <p>Projeto 1 - Descrição</p>
+            </div>
+            <div class="project">
+                <img src="img/um cara bonito e estiloso (2).jpeg" alt="Projeto 2">
+                <p>Projeto 2 - Descrição</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de clientes -->
+    <section id="clients">
+        <h2>Meus Clientes</h2>
+        <div class="clients-list">
+            <div class="client-logo"><img src="img/um cara bonito e estiloso (3).jpeg" alt="Cliente 1"></div>
+            <div class="client-logo"><img src="img/um cara de pele moreno com olhos pretos (2).jpeg" alt="Cliente 2"></div>
+        </div>
+    </section>
+
+    <!-- Seção de contato -->
+    <section id="contact">
+        <h2>Entre em Contato</h2>
+        <form>
+            <input type="text" placeholder="Seu Nome">
+            <input type="email" placeholder="Seu Email">
+            <textarea placeholder="Sua Mensagem"></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const elements = document.querySelectorAll('.project img, .client-logo img');
+            const screenSize = window.innerHeight;
+        
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+        
+                if (elementPosition < screenSize - 150) {
+                    element.style.transform = 'scale(1.1)';
+                    element.style.transition = 'transform 0.5s ease-in-out';
+                } else {
+                    element.style.transform = 'scale(1)';
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>

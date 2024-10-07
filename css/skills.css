@@ -1,0 +1,275 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(20px); /* Começa 20px abaixo do seu ponto original */
+        opacity: 0; /* Começa invisível */
+    }
+    100% {
+        transform: translateY(0); /* Move para sua posição original */
+        opacity: 1; /* Fica totalmente visível */
+    }
+}
+
+.cabecalho {
+    position: fixed;
+    top: 0;
+    height: 100px;
+    z-index: +1;
+    background-color: white;
+}
+
+.cabeca {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: +1;
+    border-bottom: solid 0.7px black;
+}
+
+.responsa {
+    display: contents;
+}
+
+.nome {
+    width: 300px;
+}
+
+.nome h2 {
+    font-family: Merriweather, Open Sans, Roboto;
+}
+
+.navegador {
+    display: flex;
+    justify-content: space-around;
+    width: 400px;
+}
+
+#unique {
+    color: blue;
+}
+
+.navegador a {
+    text-decoration: none;
+    color: black;
+}
+
+.navegador a:hover {
+    transform: scale(1.1);
+    transition: 0.9s ease;
+}
+
+.navegador a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0.5px;
+    background-color: black; /* Cor da borda */
+    transition: width 0.7s ease-out;
+}
+
+.navegador a:hover::after {
+    width: 100%; /* Quando passar o mouse, expande a borda */
+}
+
+.outro {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.outro .eu a {
+    text-decoration: none;
+    color: blue;    
+}
+
+.outro .eu {
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Largura, altura, desfoque e cor */
+    border: none;
+}
+
+.outro .projet {
+    background-color: blue;
+    border: none;
+}
+
+.outro .projet a {
+    text-decoration: none;
+    color: white;
+}
+
+.outro .projet:hover{
+    color: blue;
+    background-color: white;
+}
+
+.outro .projet a:hover{
+    color: blue;
+    
+}
+
+.outro .eu a:hover{
+    color: white;
+}
+
+.outro .eu:hover{
+    background-color: blue;
+}
+
+.outro button {
+    width: 90px;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.outro button:hover {
+    transform: scale(1.1);
+    transition: 0.7s ease;
+    box-shadow: 5px 5px 5px 5px rgba(0.2, 0.2, 0.2, 0.2); /* Largura, altura, desfoque e cor */
+}
+
+@media (max-width: 710px) {
+    .responsa {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .responsa > div {
+      width: 100%;
+    }
+    .outro {
+        width: 200px;
+        display: flex;
+        
+    }
+}
+
+main {
+    margin-top: 100px;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+    padding-top: 30px;
+}
+
+main h1 {
+    text-align: center;
+}
+
+main p {
+    text-align: center;
+}
+
+.expertise {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 60px;
+}
+
+.expertise div {
+    width: 40%;
+    align-content: center;
+}
+
+.expertise div p {
+    text-align: justify;
+}
+
+.expertise div h1 {
+    text-align: left;
+}
+
+.expertise img {
+    width: 40%;
+    height: auto;
+}
+
+@media (max-width: 710px) {
+    main p {
+        align-items: center;
+    
+    }
+    .expertise{
+        flex-direction: column;
+        align-items: center;
+    }
+    .expertise div {
+        width: 90%;
+    }
+    .expertise img {
+        width: 90%;
+    }
+}
+
+footer {
+    background-color: white;
+    height: 290px;
+    align-content: center;
+}
+
+.footer-1 {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.footer-1 h3{
+    width: 300px;
+    margin-left: 2%;
+}
+
+.nav-footer {
+    width: 700px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-footer a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-footer a:hover{
+    transform: scale(1.2);
+    transition: 0.7s ease;
+}
+
+.icon-footer {
+    margin-top: 20px;
+    width: 150px;
+    align-content: right;
+}
+
+.icon-footer img {
+    margin-left: 10px; 
+}
+
+.icon-footer img:hover {
+    transform: scale(1.5);
+    transition: 0.7s ease-in-out;
+}
+
+.linha {
+    width: 84%;
+    border: none; /* Remove a borda padrão */
+    border-bottom: 2px solid black; /* Adiciona a linha */
+    margin: auto auto; /* Centraliza horizontalmente */
+}
+.footer-2 p {
+    text-align: center;
+}
