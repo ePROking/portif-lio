@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados</title>
+    <style>
+        /* Estilos para a página de resultados */
+        body {
+            background-image: url(./img/premium_photo-1661301057249-bd008eebd06a.jpg);
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .resultados-container {
+            background: transparent;
+            border-radius: 8px;
+            box-shadow: 5px 2px 10px rgba(0, 0, 0, 0.1);
+            border: 0.5px rgb(179, 179, 179) solid;
+            margin: auto;
+            width: 1000px;
+            padding: 20px;
+            height: auto;
+            text-align: center;
+            backdrop-filter: blur(7px);
+            margin-top: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        h3 {
+            margin: 15px 0;
+            color: #007bff;
+        }
+
+        p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        canvas {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 15px 0;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="resultados-container">
+    <h2>Resultados da Votação</h2>
+    <div id="resultados"></div>
+    <canvas id="grafico-resultados" width="400" height="200"></canvas>
+    <button onclick="logout()">Sair</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const username = sessionStorage.getItem('username');
+    if (!username) {
+        window.location.href = 'login.html';
+    }
+
+    function logout() {
+        sessionStorage.removeItem('username');
+        window.location.href = 'login.html';
+    }
+
+    function exibirResultados() {
+        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = '';
+
+        eventos.forEach(evento => {
+            const div = document.createElement('div');
+            const opcoesResultados = evento.opcoes.map(opcao => 
+                `<p>${opcao.nome}: ${opcao.votos} votos</p>`
+            ).join('');
+            div.innerHTML = `<h3>${evento.nome}</h3>${opcoesResultados}`;
+            resultadosDiv.appendChild(div);
+        });
+
+        exibirGrafico(eventos);
+    }
+
+    function exibirGrafico(eventos) {
+        const labels = [];
+        const data = [];
+
+        eventos.forEach(evento => {
+            evento.opcoes.forEach(opcao => {
+                labels.push(opcao.nome);
+                data.push(opcao.votos);
+            });
+        });
+
+        const ctx = document.getElementById('grafico-resultados').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Votos',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    window.onload = exibirResultados;
+</script>
+
+</body>
+</html>
+

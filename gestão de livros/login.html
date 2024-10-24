@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Biblioteca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(./img/livraria.jpg);
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            align-content: center;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: transparent;
+            backdrop-filter: blur(3px);
+        }
+
+        input {
+            border: none; /* Remove todas as bordas */
+            border-bottom: 1px solid #000000; /* Borda inferior */
+            outline: none; /* Remove o contorno ao focar */
+            padding: 10px; /* Adiciona um padding */
+            width: 94%; /* Define a largura do input */
+            margin-bottom: 10px; /* Margem inferior */
+            font-size: 16px; /* Tamanho da fonte */
+            background: transparent;
+            backdrop-filter: blur(3px);
+        }
+        
+        /* Adiciona um efeito ao focar no campo */
+        input:focus {
+            border-bottom: 1px solid #0056b3; /* Muda a cor da borda inferior ao focar */
+        }
+
+
+        h1 {
+            text-align: center;
+        }
+        
+        
+        button {
+            display: block;
+            width: 100%;
+            background-color: #1270d4;
+            color: white;
+            padding: 10px;
+            border: none;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .cadastro a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .cadastro {
+            background-color: green;
+        }
+
+        #error-message {
+            color: red;
+            text-align: center;
+        }
+
+        .register-link {
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .register-link:hover {
+            transform: scale(1.03);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <p id="error-message"></p>
+        <div class="register-link">
+            <h5>Não tem conta? <a href="cadastrar.html">Registre-se</a></h5>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Recupera utilizadores do localStorage
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Verifica se o utilizador existe e a senha está correta
+            const validUser = users.find(user => user.username === username && user.password === password);
+
+            if (validUser) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                window.location.href = 'dashboard.html'; // Redireciona para o dashboard após o login
+            } else {
+                document.getElementById('error-message').textContent = 'Usuário ou senha incorretos.';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrícula Universitária</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif; /* Define a fonte usada na página */
+      background-color: #f4f4f4; /* Define a cor de fundo da página */
+      display: flex; /* Usa flexbox para alinhar os elementos */
+      justify-content: center; /* Centraliza horizontalmente */
+      align-items: center; /* Centraliza verticalmente */
+      height: 100vh; /* Define a altura da página para ocupar toda a tela */
+    }
+
+    /* Estilos do contêiner do formulário */
+    .form-container {
+      background-color: #fff; /* Cor de fundo do contêiner do formulário */
+      padding: 20px; /* Espaçamento interno */
+      border-radius: 10px; /* Arredonda os cantos do contêiner */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra do contêiner */
+      width: 300px; /* Largura fixa do contêiner */
+    }
+
+    /* Estilos do título */
+    h1 {
+      text-align: center; /* Centraliza o texto */
+      color: #333; /* Cor do texto */
+    }
+
+    /* Estilos dos rótulos */
+    label {
+      font-weight: bold; /* Deixa o texto do rótulo em negrito */
+      margin-top: 10px; /* Margem superior para espaçamento */
+      display: block; /* Faz o rótulo ocupar toda a linha */
+    }
+
+    /* Estilos dos campos de entrada */
+    input, select {
+      width: 100%; /* Largura total do campo */
+      padding: 8px; /* Espaçamento interno */
+      margin-top: 5px; /* Margem superior */
+      margin-bottom: 15px; /* Margem inferior */
+      border: 1px solid #ccc; /* Borda padrão */
+      border-radius: 5px; /* Arredonda os cantos */
+    }
+
+    /* Estilos do botão */
+    button {
+      width: 100%; /* Largura total do botão */
+      padding: 10px; /* Espaçamento interno */
+      background-color: #28a745; /* Cor de fundo do botão */
+      color: white; /* Cor do texto do botão */
+      border: none; /* Remove borda padrão */
+      border-radius: 5px; /* Arredonda os cantos */
+      cursor: pointer; /* Muda o cursor ao passar sobre o botão */
+      font-size: 16px; /* Tamanho da fonte */
+    }
+
+    /* Efeito ao passar o mouse sobre o botão */
+    button:hover {
+      background-color: #218838; /* Cor do botão ao passar o mouse */
+    }
+
+    /* Estilos da mensagem de status */
+    p {
+      text-align: center; /* Centraliza o texto */
+      color: #555; /* Cor do texto */
+    }
+
+    /* Estilos do link */
+    a {
+      display: block; /* Faz o link ocupar toda a linha */
+      text-align: center; /* Centraliza o texto do link */
+      margin-top: 10px; /* Margem superior */
+      text-decoration: none; /* Remove sublinhado padrão */
+      color: #007bff; /* Cor do texto do link */
+    }
+
+    /* Efeito ao passar o mouse sobre o link */
+    a:hover {
+      text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1>Matrícula</h1>
+    <form id="matriculaForm">
+      <!-- Campo para nome -->
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" required> <!-- Campo obrigatório -->
+
+      <!-- Campo para e-mail -->
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" required> <!-- Campo obrigatório -->
+
+      <!-- Campo para selecionar curso -->
+      <label for="curso">Curso</label>
+      <select id="curso" name="curso" required> <!-- Campo obrigatório -->
+        <option value="Ciencia da Computação">Ciência da Computação</option>
+        <option value="Engenharia">Engenharia</option>
+        <option value="Medicina">Medicina</option>
+        <option value="Direito">Direito</option>
+      </select>
+
+      <!-- Botão de envio do formulário -->
+      <button type="submit">Realizar Matrícula</button>
+    </form>
+
+    <!-- Mensagem de status -->
+    <p id="statusMessage"></p>
+
+    <!-- Link para visualizar alunos matriculados -->
+    <a href="tr.html">Ver Alunos Matriculados</a>
+  </div>
+
+  <script>
+    // Função para gerar um ID de matrícula único
+    function gerarIDMatricula() {
+      // Gerar um número aleatório entre 10000 e 99999
+      return Math.floor(Math.random() * 90000) + 10000; // Retorna um número aleatório
+    }
+
+    // Função para verificar se os dados já existem
+    function dadosJaExistem(nome, email) {
+      // Obter os alunos já armazenados
+      let alunos = JSON.parse(localStorage.getItem('meusAlunos')) || []; // Recupera a lista de alunos ou cria um array vazio
+
+      // Verifica se já existe um aluno com o mesmo nome e e-mail
+      return alunos.some(aluno => aluno.nome === nome && aluno.email === email); // Retorna true se existir
+    }
+
+    // Função para salvar os dados no localStorage e também um cookie
+    function salvarDados(nome, email, curso) {
+      const matriculaID = gerarIDMatricula(); // Gerar ID automaticamente
+
+      // Verifica se os dados já existem
+      if (dadosJaExistem(nome, email)) {
+        document.getElementById('statusMessage').innerText = "Este aluno já está matriculado!"; // Mensagem de erro
+        return; // Interrompe o salvamento se já existir
+      }
+
+      // Criar um objeto de aluno
+      const aluno = {
+        nome: nome,
+        email: email,
+        curso: curso,
+        matriculaID: matriculaID, // Inclui o ID gerado
+        dataHora: new Date().toLocaleString() // Adiciona a data e hora atuais
+      };
+
+      // Obter os alunos já armazenados (se houver) e adicionar o novo aluno
+      let alunos = JSON.parse(localStorage.getItem('meusAlunos')) || []; // Recupera a lista de alunos
+      alunos.push(aluno); // Adiciona o novo aluno à lista
+
+      // Armazenar de volta no localStorage
+      localStorage.setItem('meusAlunos', JSON.stringify(alunos)); // Atualiza o localStorage com a nova lista
+
+      // Armazenando o nome do aluno em um cookie (duração de 7 dias)
+      document.cookie = `nome=${nome}; max-age=${7 * 24 * 60 * 60}; path=/`; // Cria um cookie
+
+      // Atualizar o status com a mensagem de sucesso
+      document.getElementById('statusMessage').innerText = `Matrícula realizada com sucesso! ID de Matrícula: ${matriculaID}`; // Mensagem de sucesso
+    }
+
+    // Evento de submissão do formulário
+    document.getElementById('matriculaForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevenir o envio real do formulário
+
+      // Coletar os dados do formulário
+      const nome = document.getElementById('nome').value; // Obtém o valor do campo nome
+      const email = document.getElementById('email').value; // Obtém o valor do campo e-mail
+      const curso = document.getElementById('curso').value; // Obtém o valor do campo curso
+
+      // Salvar os dados no localStorage e cookie
+      salvarDados(nome, email, curso); // Chama a função para salvar os dados
+    });
+  </script>
+
+</body>
+</html>

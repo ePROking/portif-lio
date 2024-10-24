@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar/Editar Livro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(./img/livraria.jpg);
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            align-content: center;
+        }
+
+        .add-edit-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: transparent;
+            backdrop-filter: blur(3px);
+        }
+        input {
+            border: none; /* Remove todas as bordas */
+            border-bottom: 1px solid #000000; /* Borda inferior */
+            outline: none; /* Remove o contorno ao focar */
+            padding: 10px; /* Adiciona um padding */
+            width: 94%; /* Define a largura do input */
+            margin-bottom: 10px; /* Margem inferior */
+            font-size: 16px; /* Tamanho da fonte */
+            background: transparent;
+            backdrop-filter: blur(3px);
+        }
+        
+        /* Adiciona um efeito ao focar no campo */
+        input:focus {
+            border-bottom: 1px solid #0056b3; /* Muda a cor da borda inferior ao focar */
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, input, select, button {
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body onload="checkSession(); loadBookData()">
+    <div class="add-edit-container">
+        <h1 id="form-title">Adicionar Livro</h1>
+        <form id="bookForm">
+            <label for="title">Título:</label>
+            <input type="text" id="title" required>
+            
+            <label for="author">Autor:</label>
+            <input type="text" id="author" required>
+            
+            <label for="category">Categoria:</label>
+            <input type="text" id="category" required>
+            
+            <label for="year">Ano de Publicação:</label>
+            <input type="number" id="year" required>
+            
+            <label for="status">Disponibilidade:</label>
+            <select id="status" required>
+                <option value="Disponível">Disponível</option>
+                <option value="Emprestado">Emprestado</option>
+            </select>
+            
+            <button type="submit">Salvar</button>
+        </form>
+        <button onclick="logout()">Sair</button>
+    </div>
+
+    <script>
+        let editIndex = null;
+
+        function loadBookData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            editIndex = urlParams.get('editIndex');
+            
+            if (editIndex !== null) {
+                const books = JSON.parse(localStorage.getItem('books')) || [];
+                const book = books[editIndex];
+                
+                if (book) {
+                    document.getElementById('form-title').textContent = "Editar Livro";
+                    document.getElementById('title').value = book.title;
+                    document.getElementById('author').value = book.author;
+                    document.getElementById('category').value = book.category;
+                    document.getElementById('year').value = book.year;
+                    document.getElementById('status').value = book.status;
+                }
+            }
+        }
+
+        document.getElementById('bookForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const category = document.getElementById('category').value;
+            const year = document.getElementById('year').value;
+            const status = document.getElementById('status').value;
+
+            const newBook = { title, author, category, year, status };
+            let books = JSON.parse(localStorage.getItem('books')) || [];
+
+            if (editIndex !== null) {
+                books[editIndex] = newBook; // Editando o livro existente
+            } else {
+                books.push(newBook); // Adicionando um novo livro
+            }
+
+            localStorage.setItem('books', JSON.stringify(books));
+            window.location.href = 'manage-books.html';
+        });
+
+        function checkSession() {
+            if (!sessionStorage.getItem('adminLoggedIn')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

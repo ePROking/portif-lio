@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Document</title>
+    <style>
+        #dash {
+            background-color: rgb(145, 145, 145);
+            width: 100%;
+            height: 50px;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <section class="inicio">
+        <div class="pri">
+            <section class="nav">
+                <img src="img/Projeto sem nome-Camada 1.png" alt="logotipo">
+                <a href="dashboard.html"><h2 id="dash">Dashboard</h2></a>
+                <a href="inder.html"><h2 id="formando">Formando</h2></a>
+
+            </section>
+
+            <section class="container">
+                <div class="nome">
+                    <h1>Evinilson</h1>
+                </div>
+            <!--quero fazer uma tabela com duas colunas e duas linhas-->
+                <div class="dashboard">
+                    
+                    <div class="dashboard-item">
+                        <div class="label">Total de Registros</div>
+                        <div class="value" id="totalRegistros">0</div>
+                        
+                    </div>
+                    <div class="dashboard-item">
+                        <div class="label">Total de Cursos</div>
+                        <div class="value" id="totalCursos">0</div>
+                        
+                    </div>
+                </div>
+
+
+            </section>
+
+        </div>
+    </section>
+    <script>
+         // Função para contar o total de alunos e cursos únicos
+         function atualizarDashboard() {
+            // Recupera os dados salvos no localStorage
+            let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+
+            // Total de alunos registrados
+            const totalAlunos = alunos.length;
+
+            // Para contar cursos únicos
+            const cursosSet = new Set(); // Set para armazenar cursos sem repetição
+            alunos.forEach(aluno => {
+                cursosSet.add(aluno.curso); // Adiciona o curso à lista de cursos únicos
+            });
+            const totalCursos = cursosSet.size; // Conta o número de cursos únicos
+
+            // Exibe os valores no dashboard
+            document.getElementById('totalRegistros').innerText = totalAlunos;
+            document.getElementById('totalCursos').innerText = totalCursos;
+        }
+
+        // Chama a função ao carregar a página
+        window.onload = atualizarDashboard;
+    </script>
+</body>
+</html>

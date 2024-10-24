@@ -1,0 +1,100 @@
+body {
+    padding: 0%;
+    border: 0%;
+    overflow: hidden;
+    background-color: white;
+}
+
+.pri {
+    display: flex;
+    height: 100%;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    border: solid 1px black;
+    align-items: center;
+    height: 100vh; /* Garante a altura total da tela */
+    justify-content: space-around; /* Distribui os itens ao longo da altura */
+    background-color: black;
+}
+
+.nav img {
+    width: 100%;
+    border-radius: 50%;
+}
+
+.nav a {
+    text-decoration: none;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.nav h2 {
+    text-decoration: none;
+    color: white;
+}
+
+.container {
+    width: 85%;
+    
+}
+
+
+.container h1 {
+    font-size: 30px;
+    text-align: right;
+    margin-right: 10%;
+    width: 85%;
+}
+
+.nome {
+    width: 100%;
+    height: 40px;
+    background-color: whitesmoke;
+    height: 100px;
+    align-content: center;
+    margin-bottom: 45px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsividade para tablets e telas menores */
+@media (max-width: 768px) {
+    .nav {
+        width: 25%; /* Aumenta a largura da navegação para tablets */
+        padding-left: 10px; /* Diminui o padding lateral */
+    }
+}
+
+/* Responsividade para celulares */
+@media (max-width: 480px) {
+    .nav {
+        width: 100%; /* Torna a navegação full-width para celulares */
+        height: auto; /* Remove a altura fixa */
+        justify-content: flex-start; /* Alinha itens no início */
+        padding: 20px 0; /* Ajusta o padding */
+        gap: 20px; /* Adiciona espaçamento entre os itens */
+    }
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.dashboard-item {
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens horizontalmente */
+    justify-content: center; /* (Opcional) Alinha verticalmente se necessário */
+    border-radius: 10px;
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Evento</title>
+    <style>
+        /* Estilos para a página de cadastro de eventos */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .event-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        h3 {
+            margin-top: 30px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #eaeaea;
+        }
+
+        .opcoes-lista {
+            margin-bottom: 15px;
+            text-align: left;
+            padding-left: 0;
+        }
+
+        .opcoes-lista li {
+            list-style-type: none;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="event-container">
+    <h2>Cadastrar Evento</h2>
+    <input type="text" id="event-name" placeholder="Nome do Evento" required>
+    
+    <input type="text" id="option" placeholder="Opção de Votação" required>
+    <button onclick="adicionarOpcao()">Adicionar Opção</button>
+    
+    <ul class="opcoes-lista" id="opcoes-lista"></ul>
+    
+    <button onclick="cadastrarEvento()">Cadastrar Evento</button>
+    
+    <h3>Eventos Cadastrados</h3>
+    <table id="event-table">
+        <thead>
+            <tr>
+                <th>Evento</th>
+                <th>Opções de Votação</th>
+            </tr>
+        </thead>
+        <tbody id="event-tbody">
+            <!-- As linhas da tabela serão inseridas aqui -->
+        </tbody>
+    </table>
+    
+    <button onclick="irParaVotacao()">Ir para Votação</button>
+</div>
+
+<script>
+    let opcoes = [];
+
+    function adicionarOpcao() {
+        const option = document.getElementById('option').value;
+
+        if (option) {
+            opcoes.push(option);
+            document.getElementById('option').value = '';
+            atualizarListaOpcoes();
+        } else {
+            alert('Por favor, insira uma opção de votação.');
+        }
+    }
+
+    function atualizarListaOpcoes() {
+        const lista = document.getElementById('opcoes-lista');
+        lista.innerHTML = '';
+        opcoes.forEach((opcao, index) => {
+            const li = document.createElement('li');
+            li.textContent = opcao;
+            li.innerHTML += ` <button onclick="removerOpcao(${index})">Remover</button>`;
+            lista.appendChild(li);
+        });
+    }
+
+    function removerOpcao(index) {
+        opcoes.splice(index, 1);
+        atualizarListaOpcoes();
+    }
+
+    function cadastrarEvento() {
+        const eventName = document.getElementById('event-name').value;
+
+        if (eventName && opcoes.length > 0) {
+            const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+
+            const eventoExistente = eventos.find(evento => evento.nome === eventName);
+            if (eventoExistente) {
+                eventoExistente.opcoes = [...eventoExistente.opcoes, ...opcoes.map(op => ({ nome: op, votos: 0 }))];
+            } else {
+                eventos.push({ nome: eventName, opcoes: opcoes.map(op => ({ nome: op, votos: 0 })) });
+            }
+
+            localStorage.setItem('eventos', JSON.stringify(eventos));
+            alert('Evento cadastrado com sucesso!');
+            document.getElementById('event-name').value = '';
+            opcoes = [];
+            atualizarListaOpcoes();
+            atualizarTabela();
+        } else {
+            alert('Por favor, preencha todos os campos e adicione pelo menos uma opção.');
+        }
+    }
+
+    function atualizarTabela() {
+        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+        const tbody = document.getElementById('event-tbody');
+        tbody.innerHTML = '';
+
+        eventos.forEach(evento => {
+            const tr = document.createElement('tr');
+            const opcoesTexto = evento.opcoes.map(op => op.nome).join(', ');
+            tr.innerHTML = `<td>${evento.nome}</td><td>${opcoesTexto}</td>`;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function irParaVotacao() {
+        window.location.href = 'votacao.html';
+    }
+
+    window.onload = atualizarTabela;
+</script>
+
+</body>
+</html>

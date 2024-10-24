@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Document</title>
+    <style>
+        #formando {
+            background-color: rgb(145, 145, 145);
+            width: 100%;
+            height: 50px;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+        }
+
+        .novo {
+            text-align: right;
+            width: 80%;
+            height: 50px;
+            margin-left: 15%;
+            margin-bottom: 20px;
+            align-content: center;
+        }
+
+        .novo button {
+            background-color: black;
+            height: auto;
+            width: auto;
+            border-radius: 5px;
+        }
+
+        .novo a {
+            text-decoration: none;
+            color: white;
+            font-size: 22px;
+        }
+
+        .table-container {
+            width: 80%; /* Tamanho da tabela */
+            margin-left: 15%;
+            max-height: 700px; /* Define uma altura máxima para o contêiner da tabela */
+            overflow-y: auto; /* Adiciona o scroll vertical */
+            
+        }   
+
+        table {
+            width: 100%;
+            
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-details {
+            background-color: #2ecc71;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <section class="inicio">
+        <div class="pri">
+            <section class="nav">
+                <img src="img/Projeto sem nome-Camada 1.png" alt="logotipo">
+                <a href="dashboard.html"><h2 id="dash">Dashboard</h2></a>
+                <a href="inder.html"><h2 id="formando">Formando</h2></a>
+
+            </section>
+
+            <section class="container">
+                <div class="nome">
+                    <h1>Evinilson</h1>
+                </div>
+            <!--quero fazer uma tabela com duas colunas e duas linhas-->
+                <div class="novo">
+                    <button><a href="dashboard.html">Voltar a dashboard</a></button>
+                    <button><a href="formulario.html">News</a></button>
+
+                </div>
+                <div class="table-container">
+                    <table id="alunoTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome do Aluno</th>
+                                <th>Curso</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Linhas serão adicionadas dinamicamente aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </section>
+    <script>
+         // Função para carregar os dados do localStorage e exibir na tabela
+         function loadTable() {
+            const alunoTable = document.getElementById('alunoTable').getElementsByTagName('tbody')[0];
+            alunoTable.innerHTML = '';  // Limpa a tabela antes de carregá-la novamente
+    
+            let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+    
+            alunos.forEach((aluno, index) => {
+                let row = alunoTable.insertRow();
+    
+                // Colunas da tabela
+                let cellId = row.insertCell(0);
+                let cellNome = row.insertCell(1);
+                let cellCurso = row.insertCell(2);
+                let cellAcoes = row.insertCell(3);
+    
+                cellId.innerHTML = index + 1;
+                cellNome.innerHTML = aluno.nomeAluno;
+                cellCurso.innerHTML = aluno.curso;
+    
+                // Botões de ação
+                cellAcoes.innerHTML = `
+                    <button class="btn-edit" onclick="editarAluno(${index})">Editar</button>
+                    <button class="btn-delete" onclick="eliminarAluno(${index})">Eliminar</button>
+                    <button class="btn-details" onclick="detalhesAluno(${index})">Detalhes</button>
+                `;
+            });
+        }
+    
+        // Função para editar aluno
+        function editarAluno(index) {
+            window.location.href = `formulario.html?edit=${index}`;
+        }
+    
+        // Função para eliminar aluno
+        function eliminarAluno(index) {
+            let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+            alunos.splice(index, 1); // Remove o aluno do array
+            localStorage.setItem('alunos', JSON.stringify(alunos));
+            loadTable();  // Recarrega a tabela após eliminação
+        }
+    
+        // Função para ver detalhes do aluno
+        function detalhesAluno(index) {
+            window.location.href = `detalhes.html?aluno=${index}`;
+        }
+    
+        // Carrega a tabela ao iniciar
+        window.onload = function() {
+            loadTable();
+        }
+    </script>
+</body>
+</html>

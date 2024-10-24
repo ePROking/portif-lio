@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alunos Matriculados</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Estilos da tabela */
+    table {
+      width: 60%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 18px;
+      text-align: left;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      padding: 12px 15px;
+    }
+
+    table thead {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+
+    table tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    /* Estilos do link */
+    a {
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Título da página -->
+  <h1>Alunos Matriculados</h1>
+
+  <!-- Tabela para exibir os alunos -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID de Matrícula</th>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Curso</th>
+        <th>Data e Hora da Matrícula</th> <!-- Nova coluna para Data e Hora -->
+      </tr>
+    </thead>
+    <tbody id="alunosTableBody">
+      <!-- Os dados dos alunos serão inseridos aqui dinamicamente -->
+    </tbody>
+  </table>
+
+  <!-- Link para retornar ao formulário de matrícula -->
+  <a href="trab.html">Voltar para Matrícula</a>
+  <button><a href="index.html">Matéria</a></button>
+
+  <script>
+    // Função para carregar os alunos do localStorage
+    function carregarAlunos() {
+      // Obter os alunos do localStorage
+      let alunos = JSON.parse(localStorage.getItem('meusAlunos')) || []; // Alterado para 'meusAlunos'
+
+      // Selecionar o corpo da tabela onde os alunos serão exibidos
+      const tabelaCorpo = document.getElementById('alunosTableBody');
+
+      // Iterar sobre os alunos e criar as linhas da tabela
+      alunos.forEach(aluno => {
+        // Criar uma nova linha
+        let row = document.createElement('tr');
+
+        // Criar as células para o ID, nome, email, curso e data de matrícula
+        let matriculaCell = document.createElement('td');
+        matriculaCell.textContent = aluno.matriculaID; // Preencher ID de matrícula
+        row.appendChild(matriculaCell);
+
+        let nomeCell = document.createElement('td');
+        nomeCell.textContent = aluno.nome; // Preencher nome
+        row.appendChild(nomeCell);
+
+        let emailCell = document.createElement('td');
+        emailCell.textContent = aluno.email; // Preencher e-mail
+        row.appendChild(emailCell);
+
+        let cursoCell = document.createElement('td');
+        cursoCell.textContent = aluno.curso; // Preencher curso
+        row.appendChild(cursoCell);
+
+        let dataHoraCell = document.createElement('td');
+        dataHoraCell.textContent = aluno.dataHora; // Preencher Data e Hora da Matrícula
+        row.appendChild(dataHoraCell);
+
+        // Adicionar a linha completa na tabela
+        tabelaCorpo.appendChild(row);
+      });
+    }
+
+    // Carregar os alunos ao abrir a página
+    window.onload = carregarAlunos;
+  </script>
+
+</body>
+</html>

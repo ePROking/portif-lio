@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Votação</title>
+    <style>
+        /* Estilos para a página de votação */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            height: auto;
+        }
+
+        .votacao-container {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .opcoes {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+            width: 50%;
+        }
+
+        tbody tr:hover {
+            background-color: #eaeaea;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 5px 0;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        canvas {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+
+        .reset-btn {
+            background-color: #dc3545;
+            margin-left: 10px;
+        }
+
+        .reset-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="votacao-container">
+    <h2>Votação</h2>
+    <div class="opcoes">
+        <table id="eventos-table">
+            <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Opções de Votação</th>
+                </tr>
+            </thead>
+            <tbody id="eventos-tbody">
+                <!-- As linhas da tabela serão inseridas aqui -->
+            </tbody>
+        </table>
+    </div>
+    <button onclick="logout()">Sair</button>
+    <button onclick="registrarVoto()">Registrar Voto</button>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const username = sessionStorage.getItem('username');
+    if (!username) {
+        window.location.href = 'index.html';
+    }
+
+    function logout() {
+        sessionStorage.removeItem('username');
+        window.location.href = 'resultados.html';
+    }
+
+    function exibirEventos() {
+        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+        const votosUsuarios = JSON.parse(localStorage.getItem('votosUsuarios')) || {};
+        const tbody = document.getElementById('eventos-tbody');
+        tbody.innerHTML = '';
+
+        eventos.forEach(evento => {
+            const tr = document.createElement('tr');
+            const opcoes = evento.opcoes.map(op => `
+                <label>
+                    <input type="radio" name="${evento.nome}" value="${op.nome}" ${votosUsuarios[username] && votosUsuarios[username][evento.nome] ? 'disabled' : ''}>
+                    ${op.nome}
+                </label>
+            `).join('<br>');
+
+            const resetBtn = votosUsuarios[username] && votosUsuarios[username][evento.nome] ? `
+                <button class="reset-btn" onclick="limparVotacao('${evento.nome}')">Limpar Votação</button>
+            ` : '';
+
+            tr.innerHTML = `<td>${evento.nome}</td><td>${opcoes} ${resetBtn}</td>`;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function registrarVoto() {
+        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+        let votosUsuarios = JSON.parse(localStorage.getItem('votosUsuarios')) || {};
+
+        if (!votosUsuarios[username]) {
+            votosUsuarios[username] = {};
+        }
+
+        eventos.forEach(evento => {
+            const voto = document.querySelector(`input[name="${evento.nome}"]:checked`);
+            if (voto && !votosUsuarios[username][evento.nome]) {
+                const opcaoVotada = evento.opcoes.find(opcao => opcao.nome === voto.value);
+                opcaoVotada.votos++;
+                votosUsuarios[username][evento.nome] = voto.value;
+            }
+        });
+
+        localStorage.setItem('eventos', JSON.stringify(eventos));
+        localStorage.setItem('votosUsuarios', JSON.stringify(votosUsuarios));
+        alert('Voto registrado com sucesso!');
+        
+        // Atualizar a exibição
+        exibirEventos();
+    }
+
+    function limparVotacao(eventoNome) {
+        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+        let votosUsuarios = JSON.parse(localStorage.getItem('votosUsuarios')) || {};
+
+        if (votosUsuarios[username] && votosUsuarios[username][eventoNome]) {
+            const evento = eventos.find(ev => ev.nome === eventoNome);
+            const opcaoVotada = evento.opcoes.find(opcao => opcao.nome === votosUsuarios[username][eventoNome]);
+            opcaoVotada.votos--;
+            delete votosUsuarios[username][eventoNome];
+        }
+
+        localStorage.setItem('eventos', JSON.stringify(eventos));
+        localStorage.setItem('votosUsuarios', JSON.stringify(votosUsuarios));
+        alert(`Votação do evento "${eventoNome}" foi limpa.`);
+
+        // Atualizar a exibição
+        exibirEventos();
+    }
+
+    function exibirGrafico() {
+        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+        const labels = [];
+        const data = [];
+
+        eventos.forEach(evento => {
+            evento.opcoes.forEach(opcao => {
+                labels.push(opcao.nome);
+                data.push(opcao.votos);
+            });
+        });
+
+        const ctx = document.getElementById('grafico').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Votos',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    window.onload = () => {
+        exibirEventos();
+        exibirGrafico();
+    }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Livros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(./img/livraria.jpg);
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            align-content: center;
+        }
+
+        .manage-books-container {
+            max-width: 900px;
+            min-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: transparent;
+            backdrop-filter: blur(5px);
+        }
+        h1 {
+            text-align: center;
+        }
+        input {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body onload="checkSession(); loadBooks();">
+    <div class="manage-books-container">
+        <h1>Gerenciar Livros</h1>
+        <input type="text" id="searchBar" placeholder="Pesquisar por título, autor ou categoria" onkeyup="filterBooks()">
+        <table id="booksTable">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Categoria</th>
+                    <th>Ano</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="booksList"></tbody>
+        </table>
+        <a href="add-book.html">Adicionar novo livro</a>
+        <button onclick="logout()">Sair</button>
+    </div>
+
+    <script>
+        function loadBooks() {
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            const booksList = document.getElementById('booksList');
+            booksList.innerHTML = '';
+
+            books.forEach((book, index) => {
+                const row = `<tr>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.category}</td>
+                    <td>${book.year}</td>
+                    <td>${book.status}</td>
+                    <td>
+                        <button onclick="editBook(${index})">Editar</button>
+                        <button onclick="deleteBook(${index})">Excluir</button>
+                    </td>
+                </tr>`;
+                booksList.innerHTML += row;
+            });
+        }
+
+        function deleteBook(index) {
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            books.splice(index, 1);
+            localStorage.setItem('books', JSON.stringify(books));
+            loadBooks();
+        }
+
+        function filterBooks() {
+            const query = document.getElementById('searchBar').value.toLowerCase();
+            const rows = document.querySelectorAll('#booksList tr');
+            rows.forEach(row => {
+                const columns = row.getElementsByTagName('td');
+                const title = columns[0].textContent.toLowerCase();
+                const author = columns[1].textContent.toLowerCase();
+                const category = columns[2].textContent.toLowerCase();
+                row.style.display = (title.includes(query) || author.includes(query) || category.includes(query)) ? '' : 'none';
+            });
+        }
+
+        function checkSession() {
+            if (!sessionStorage.getItem('adminLoggedIn')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

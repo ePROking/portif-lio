@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Document</title>
+    <style>
+        #formando {
+            background-color: rgb(145, 145, 145);
+            width: 100%;
+            height: 50px;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+        }
+
+        .novo {
+            text-align: right;
+            width: 80%;
+            height: 50px;
+            margin-left: 15%;
+            margin-bottom: 20px;
+            align-content: center;
+        }
+
+        .novo button {
+            background-color: black;
+            height: auto;
+            width: auto;
+            border-radius: 5px;
+        }
+
+        .novo a {
+            text-decoration: none;
+            color: white;
+            font-size: 22px;
+        }
+
+        table {
+            width: 80%;
+            margin-left: 10%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgb(145, 145, 145);
+            color: white;
+        }
+
+        /* Responsividade para tablets e telas menores */
+        @media (max-width: 768px) {
+            .nav {
+                width: 25%;
+            }
+        }
+
+        /* Responsividade para celulares */
+        @media (max-width: 480px) {
+            .nav {
+                width: 100%;
+                height: auto;
+                justify-content: flex-start;
+                padding: 20px 0;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="inicio">
+        <div class="pri">
+            <section class="nav">
+                <img src="img/Projeto sem nome-Camada 1.png" alt="logotipo">
+                <a href="dashboard.html"><h2 id="dash">Dashboard</h2></a>
+                <a href="inder.html"><h2 id="formando">Formando</h2></a>
+
+            </section>
+
+            <section class="container">
+                <div class="nome">
+                    <h1>Evinilson</h1>
+                </div>
+
+                <div class="novo">
+                    <button><a href="inder.html">Voltar</a></button>
+
+                </div>
+            <!--quero fazer uma tabela com duas colunas e duas linhas-->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Atributo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nome do Aluno</td>
+                        <td id="detalheNomeAluno"></td>
+                    </tr>
+                    <tr>
+                        <td>Nome do Encarregado</td>
+                        <td id="detalheNomeEncarregado"></td>
+                    </tr>
+                    <tr>
+                        <td>CNI</td>
+                        <td id="detalheCni"></td>
+                    </tr>
+                    <tr>
+                        <td>Data de Nascimento</td>
+                        <td id="detalheDataNascimento"></td>
+                    </tr>
+                    <tr>
+                        <td>Morada</td>
+                        <td id="detalheMorada"></td>
+                    </tr>
+                    <tr>
+                        <td>Nível de Ensino</td>
+                        <td id="detalheNivelEnsino"></td>
+                    </tr>
+                    <tr>
+                        <td>Curso</td>
+                        <td id="detalheCurso"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            </section>
+
+        </div>
+    </section>
+    <script>
+         // Função para carregar os detalhes do aluno com base no índice fornecido na URL
+         function carregarDetalhesAluno() {
+            // Obtém o parâmetro 'aluno' da URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const alunoIndex = urlParams.get('aluno');
+
+            if (alunoIndex !== null) {
+                // Recupera os dados salvos no localStorage
+                let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+                const aluno = alunos[alunoIndex];
+
+                // Exibe os dados do aluno nos campos correspondentes
+                if (aluno) {
+                    document.getElementById('detalheNomeAluno').innerText = aluno.nomeAluno;
+                    document.getElementById('detalheNomeEncarregado').innerText = aluno.nomeEncarregado;
+                    document.getElementById('detalheCni').innerText = aluno.cni;
+                    document.getElementById('detalheDataNascimento').innerText = aluno.dataNascimento;
+                    document.getElementById('detalheMorada').innerText = aluno.morada;
+                    document.getElementById('detalheNivelEnsino').innerText = aluno.nivelEnsino;
+                    document.getElementById('detalheCurso').innerText = aluno.curso;
+                } else {
+                    alert("Nenhum aluno encontrado com o índice especificado.");
+                }
+            } else {
+                alert("Nenhum índice de aluno foi fornecido.");
+            }
+        }
+
+        // Carrega os detalhes do aluno ao iniciar a página
+        window.onload = carregarDetalhesAluno;
+    </script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Document</title>
+    <style>
+        #formando {
+            background-color: rgb(145, 145, 145);
+            width: 100%;
+            height: 50px;
+            align-items: center;
+            align-content: center;
+            text-align: center;
+        }
+
+        /* Estilo básico do formulário */
+        form {
+            width: 80%;
+            margin: 0 auto;
+            background-color: whitesmoke;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            margin-bottom: 45px;
+        }
+
+        form h1, form h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: rgb(145, 145, 145);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: rgb(145, 145, 145);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: rgb(100, 100, 100);
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            form {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .form-group label, button[type="submit"] {
+                font-size: 14px;
+            }
+
+            .form-group input, .form-group select {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Seção de início da página -->
+    <section class="inicio">
+        <div class="pri">
+
+            <!-- Seção de navegação contendo um logotipo e links -->
+            <section class="nav">
+                <!-- Imagem do logotipo -->
+                <img src="img/Projeto sem nome-Camada 1.png" alt="logotipo">
+
+                <!-- Link para a página de dashboard -->
+                <a href="dashboard.html"><h2 id="dash">Dashboard</h2></a>
+                
+                <!-- Link para a página de formando -->
+                <a href="inder.html"><h2 id="formando">Formando</h2></a>
+            </section>
+
+            <!-- Container principal onde os dados do usuário e o formulário estão localizados -->
+            <section class="container">
+                <!-- Exibição do nome (pode ser dinâmico, aqui está estático) -->
+                <div class="nome">
+                    <h1>Evinilson</h1>
+                </div>
+
+                <!-- Comentário indicando a intenção de criar uma tabela -->
+                <!-- quero fazer uma tabela com duas colunas e duas linhas -->
+
+                <!-- Formulário de inscrição para cadastro de aluno -->
+                <form id="formInscricao" action="paginaSucesso.html" method="POST">
+                    
+                    <!-- Grupo de formulário para entrada de texto do nome completo do aluno -->
+                    <div class="form-group">
+                        <label for="nomeAluno">Nome Completo do Aluno:</label>
+                        <input type="text" id="nomeAluno" name="nomeAluno" required>
+                    </div>
+
+                    <!-- Grupo de formulário para entrada de texto do nome do encarregado -->
+                    <div class="form-group">
+                        <label for="nomeEncarregado">Nome do Encarregado de Educação:</label>
+                        <input type="text" id="nomeEncarregado" name="nomeEncarregado" required>
+                    </div>
+
+                    <!-- Grupo de formulário para entrada de texto do número de CNI -->
+                    <div class="form-group">
+                        <label for="cni">Número de CNI:</label>
+                        <input type="text" id="cni" name="cni" required>
+                    </div>
+
+                    <!-- Grupo de formulário para entrada de data de nascimento -->
+                    <div class="form-group">
+                        <label for="dataNascimento">Data de Nascimento:</label>
+                        <input type="date" id="dataNascimento" name="dataNascimento" required>
+                    </div>
+
+                    <!-- Grupo de formulário para entrada de texto da morada -->
+                    <div class="form-group">
+                        <label for="morada">Morada:</label>
+                        <input type="text" id="morada" name="morada" required>
+                    </div>
+
+                    <!-- Grupo de formulário com seleção do nível de ensino -->
+                    <div class="form-group">
+                        <label for="nivelEnsino">Nível de Ensino:</label>
+                        <select id="nivelEnsino" name="nivelEnsino" required>
+                            <option value="">Nivel de ensino</option>
+                            <option value="primario">Primário</option>
+                            <option value="secundario">Secundário</option>
+                            <option value="superior">Ensino Superior</option>
+                        </select>
+                    </div>
+
+                    <!-- Grupo de formulário com seleção do curso pretendido -->
+                    <div class="form-group">
+                        <label for="curso">Curso Pretendido:</label>
+                        <select id="curso" name="curso" required>
+                            <option value="escolha o curso">Escolha o curso</option>
+                            <option value="Engenharia Mecanica">Engenharia Mecânica</option>
+                            <option value="Programacao">Programação</option>
+                            <option value="Engenharia Informatica">Engenharia Informática</option>
+                        </select>
+                    </div>
+
+                    <!-- Botão para enviar o formulário -->
+                    <button type="submit">Enviar</button>
+                </form>
+            </section>
+        </div>
+    </section>
+
+    <!-- Script para manipulação do formulário e localStorage -->
+    <script>
+        // Seleciona o formulário usando o ID 'formInscricao'
+        const form = document.getElementById('formInscricao');
+
+        // Obtém os parâmetros da URL (usado para verificar se está editando)
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Obtém o valor do parâmetro 'edit' da URL (se existir)
+        const editIndex = urlParams.get('edit');
+
+        // Verifica se há um índice de edição na URL
+        if (editIndex !== null) {
+            // Se houver, obtém o array de alunos do localStorage (ou array vazio se não houver alunos)
+            const alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+            
+            // Seleciona o aluno pelo índice
+            const aluno = alunos[editIndex];
+
+            // Preenche os campos do formulário com os dados do aluno selecionado
+            document.getElementById('nomeAluno').value = aluno.nomeAluno;
+            document.getElementById('nomeEncarregado').value = aluno.nomeEncarregado;
+            document.getElementById('cni').value = aluno.cni;
+            document.getElementById('dataNascimento').value = aluno.dataNascimento;
+            document.getElementById('morada').value = aluno.morada;
+            document.getElementById('nivelEnsino').value = aluno.nivelEnsino;
+            document.getElementById('curso').value = aluno.curso;
+
+            // Adiciona o evento de submit para atualizar os dados do aluno
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita o envio padrão do formulário
+
+                // Captura os valores atuais dos campos do formulário
+                const nomeAluno = document.getElementById('nomeAluno').value;
+                const nomeEncarregado = document.getElementById('nomeEncarregado').value;
+                const cni = document.getElementById('cni').value;
+                const dataNascimento = document.getElementById('dataNascimento').value;
+                const morada = document.getElementById('morada').value;
+                const nivelEnsino = document.getElementById('nivelEnsino').value;
+                const curso = document.getElementById('curso').value;
+
+                // Recupera o array de alunos do localStorage
+                let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+
+                // Atualiza os dados do aluno no índice correspondente
+                alunos[editIndex] = {
+                    nomeAluno: nomeAluno,
+                    nomeEncarregado: nomeEncarregado,
+                    cni: cni,
+                    dataNascimento: dataNascimento,
+                    morada: morada,
+                    nivelEnsino: nivelEnsino,
+                    curso: curso
+                };
+
+                // Salva o array de alunos atualizado no localStorage
+                localStorage.setItem('alunos', JSON.stringify(alunos));
+
+                // Log para depuração, informando que o aluno foi atualizado
+                console.log("Aluno atualizado com sucesso!");
+
+                // Redireciona para a página de tabela (onde os alunos são listados)
+                window.location.href = "inder.html"; 
+            });
+        } else {
+            // Se não estiver editando, adiciona o evento de submit para cadastrar um novo aluno
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita o envio padrão do formulário
+
+                // Captura os valores dos campos do formulário
+                const nomeAluno = document.getElementById('nomeAluno').value;
+                const nomeEncarregado = document.getElementById('nomeEncarregado').value;
+                const cni = document.getElementById('cni').value;
+                const dataNascimento = document.getElementById('dataNascimento').value;
+                const morada = document.getElementById('morada').value;
+                const nivelEnsino = document.getElementById('nivelEnsino').value;
+                const curso = document.getElementById('curso').value;
+
+                // Recupera o array de alunos do localStorage (ou cria um array vazio se não houver)
+                let alunos = JSON.parse(localStorage.getItem('alunos')) || [];
+
+                // Adiciona um novo aluno ao array
+                alunos.push({
+                    nomeAluno: nomeAluno,
+                    nomeEncarregado: nomeEncarregado,
+                    cni: cni,
+                    dataNascimento: dataNascimento,
+                    morada: morada,
+                    nivelEnsino: nivelEnsino,
+                    curso: curso
+                });
+
+                // Salva o array atualizado de alunos no localStorage
+                localStorage.setItem('alunos', JSON.stringify(alunos));
+
+                // Log para depuração, informando que o aluno foi cadastrado
+                console.log("Aluno cadastrado com sucesso!");
+
+                // Redireciona para a página de tabela (onde os alunos são listados)
+                window.location.href = "inder.html"; 
+            });
+        }
+    </script>
+</body>
+</html>

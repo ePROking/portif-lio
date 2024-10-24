@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Biblioteca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(./img/livraria.jpg);
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            align-content: center;
+        }
+
+        .dashboard-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: transparent;
+            backdrop-filter: blur(3px);
+        }
+        h1 {
+            text-align: center;
+        }
+        nav a, button {
+            display: block;
+            width: 94%;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        nav a:hover, button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body onload="checkSession()">
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+        <div>
+            <p>Total de livros cadastrados: <span id="totalBooks"></span></p>
+            <p>Livros disponíveis: <span id="availableBooks"></span></p>
+            <p>Livros emprestados: <span id="borrowedBooks"></span></p>
+        </div>
+        <nav>
+            <a href="manage-books.html">Gerenciar Livros</a>
+            <a href="add-book.html">Adicionar Livro</a>
+            <button onclick="logout()">Sair</button>
+        </nav>
+    </div>
+
+    <script>
+        function checkSession() {
+            if (!sessionStorage.getItem('adminLoggedIn')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function updateDashboardStats() {
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            const totalBooks = books.length;
+            const availableBooks = books.filter(book => book.status === 'Disponível').length;
+            const borrowedBooks = totalBooks - availableBooks;
+
+            document.getElementById('totalBooks').textContent = totalBooks;
+            document.getElementById('availableBooks').textContent = availableBooks;
+            document.getElementById('borrowedBooks').textContent = borrowedBooks;
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        }
+
+        window.onload = updateDashboardStats;
+    </script>
+</body>
+</html>

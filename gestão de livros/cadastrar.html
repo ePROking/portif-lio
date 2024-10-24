@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Utilizador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(./img/livraria.jpg);
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            align-content: center;
+        }
+
+        .register-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: transparent;
+            backdrop-filter: blur(3px);
+        }
+
+        input {
+            border: none; /* Remove todas as bordas */
+            border-bottom: 1px solid #000000; /* Borda inferior */
+            outline: none; /* Remove o contorno ao focar */
+            padding: 10px; /* Adiciona um padding */
+            width: 94%; /* Define a largura do input */
+            margin-bottom: 10px; /* Margem inferior */
+            font-size: 16px; /* Tamanho da fonte */
+            background: transparent;
+            backdrop-filter: blur(3px);
+        }
+        
+        /* Adiciona um efeito ao focar no campo */
+        input:focus {
+            border-bottom: 1px solid #0056b3; /* Muda a cor da borda inferior ao focar */
+        }
+
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label, input, button {
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Cadastro de Utilizador</h1>
+        <form id="registerForm">
+            <label for="username">Nome de Utilizador:</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+
+                // Verifica se o utilizador já existe
+                const existingUser = users.find(user => user.username === username);
+                if (existingUser) {
+                    alert("Nome de utilizador já existe. Tente outro.");
+                    return;
+                }
+
+                // Armazena o novo utilizador no localStorage
+                users.push({ username, password });
+                localStorage.setItem('users', JSON.stringify(users));
+
+                alert("Cadastro realizado com sucesso!");
+                window.location.href = 'login.html'; // Redireciona para a página de login após o cadastro
+            }
+        });
+    </script>
+</body>
+</html>
