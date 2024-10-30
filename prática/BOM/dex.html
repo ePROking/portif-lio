@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de window.screen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        input, button {
+            padding: 10px 15px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerenciamento de Contas</h1>
+    <input type="text" id="username" placeholder="Nome de Usuário" />
+    <input type="email" id="email" placeholder="Email" />
+    <button id="addAccount">Adicionar Conta</button>
+
+    <h2>Contas Cadastradas</h2>
+    <div id="account-list"></div>
+    <h1>Informações da Bateria</h1>
+    <div id="battery-info"></div>
+    <h1>Informações da Tela</h1>
+    <div id="screen-info"></div>
+
+    <h1>Histórico de Navegação</h1>
+    <button id="back">Voltar</button>
+    <button id="forward">Avançar</button>
+    <button id="length">Ver Número de Entradas no Histórico</button>
+
+    <h1>Informações da URL</h1>
+    <p><strong>URL atual:</strong> <span id="current-url"></span></p>
+    <button id="reloadButton">Recarregar Página</button>
+    <button id="navigateButton">Ir para exemplo.com</button>
+
+    <h1>Informações do Host e Navegador</h1>
+    <p><strong>Nome do Host:</strong> <span id="hostname"></span></p>
+    <p><strong>URL Completa:</strong> <span id="fullUrl"></span></p>
+    <p><strong>Navegador:</strong> <span id="browserInfo"></span></p>
+
+    <script>
+        // Coletando informações da tela
+        const screenInfo = {
+            larguraTela: window.screen.width,
+            alturaTela: window.screen.height,
+            larguraDisponivel: window.screen.availWidth,
+            alturaDisponivel: window.screen.availHeight,
+            profundidadeCor: window.screen.colorDepth,
+            profundidadePixel: window.screen.pixelDepth
+        };
+
+        // Exibindo informações no console
+        console.log("Largura da tela:", screenInfo.larguraTela);
+        console.log("Altura da tela:", screenInfo.alturaTela);
+        console.log("Largura disponível:", screenInfo.larguraDisponivel);
+        console.log("Altura disponível:", screenInfo.alturaDisponivel);
+        console.log("Profundidade de cor:", screenInfo.profundidadeCor);
+        console.log("Profundidade de pixel:", screenInfo.profundidadePixel);
+
+        // Exibindo informações na página
+        const infoDiv = document.getElementById("screen-info");
+        infoDiv.innerHTML = `
+            <div class="info"><strong>Largura da tela:</strong> ${screenInfo.larguraTela}px</div>
+            <div class="info"><strong>Altura da tela:</strong> ${screenInfo.alturaTela}px</div>
+            <div class="info"><strong>Largura disponível:</strong> ${screenInfo.larguraDisponivel}px</div>
+            <div class="info"><strong>Altura disponível:</strong> ${screenInfo.alturaDisponivel}px</div>
+            <div class="info"><strong>Profundidade de cor:</strong> ${screenInfo.profundidadeCor} bits</div>
+            <div class="info"><strong>Profundidade de pixel:</strong> ${screenInfo.profundidadePixel} bits</div>
+        `;
+
+        // Função para exibir informações da bateria
+        function mostrarInformacoesBateria(bateria) {
+            const infoDiv = document.getElementById("battery-info");
+            const nivelCarga = (bateria.level * 100).toFixed(0); // Converte para porcentagem
+            const estadoCarregando = bateria.charging ? "Sim" : "Não";
+
+            infoDiv.innerHTML = `
+                <div class="info"><strong>Nível de Carga:</strong> ${nivelCarga}%</div>
+                <div class="info"><strong>Está Carregando:</strong> ${estadoCarregando}</div>
+                <div class="info"><strong>Tempo Restante:</strong> ${bateria.dischargingTime > 0 ? bateria.dischargingTime + ' segundos' : 'Indisponível'}</div>
+                <div class="info"><strong>Tempo de Carregamento:</strong> ${bateria.chargingTime > 0 ? bateria.chargingTime + ' segundos' : 'Indisponível'}</div>
+            `;
+        }
+
+        // Verifica se a Battery Status API está disponível
+        if ('getBattery' in navigator) {
+            navigator.getBattery().then(function(bateria) {
+                mostrarInformacoesBateria(bateria);
+
+                // Atualiza as informações quando o estado da bateria muda
+                bateria.onlevelchange = function() {
+                    mostrarInformacoesBateria(bateria);
+                };
+
+                bateria.onchargingchange = function() {
+                    mostrarInformacoesBateria(bateria);
+                };
+            });
+        } else {
+            document.getElementById("battery-info").innerHTML = "A Battery Status API não é suportada neste navegador.";
+        }
+
+        const contas = []; // Array para armazenar as contas
+        const accountListDiv = document.getElementById("account-list");
+
+        // Função para exibir contas
+        function exibirContas() {
+            accountListDiv.innerHTML = ''; // Limpa a lista atual
+            contas.forEach((conta, index) => {
+                const contaDiv = document.createElement("div");
+                contaDiv.classList.add("info");
+                contaDiv.textContent = `Conta ${index + 1}: Nome: ${conta.username}, Email: ${conta.email}`;
+                accountListDiv.appendChild(contaDiv);
+            });
+        }
+
+        // Adiciona um evento de clique ao botão
+        document.getElementById("addAccount").addEventListener("click", function() {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+
+            // Verifica se os campos não estão vazios
+            if (username && email) {
+                contas.push({ username, email }); // Adiciona a conta ao array
+                exibirContas(); // Atualiza a exibição das contas
+                document.getElementById("username").value = ''; // Limpa o campo de nome
+                document.getElementById("email").value = ''; // Limpa o campo de email
+            } else {
+                alert("Por favor, preencha ambos os campos.");
+            }
+        });
+
+        document.getElementById("back").addEventListener("click", function() {
+            window.history.back(); // Volta para a página anterior
+        });
+
+        document.getElementById("forward").addEventListener("click", function() {
+            window.history.forward(); // Avança para a próxima página
+        });
+
+        document.getElementById("length").addEventListener("click", function() {
+            alert("Número de entradas no histórico: " + window.history.length);
+        });
+
+         // Exibe a URL atual
+         document.getElementById("current-url").textContent = location.href;
+
+         // Evento para recarregar a página
+         document.getElementById("reloadButton").addEventListener("click", function() {
+             location.reload(); // Recarrega a página
+         });
+ 
+         // Evento para navegar para uma nova URL
+         document.getElementById("navigateButton").addEventListener("click", function() {
+             location.assign('https://www.exemplo.com'); // Navega para exemplo.com
+         });
+
+         // Obtém o nome do host da URL atual
+         const hostname = window.location.hostname;
+         document.getElementById('hostname').textContent = hostname;
+ 
+         // Obtém a URL completa
+         const fullUrl = window.location.href;
+         document.getElementById('fullUrl').textContent = fullUrl;
+ 
+         // Obtém informações sobre o navegador
+         const browserInfo = window.navigator.userAgent;
+         document.getElementById('browserInfo').textContent = browserInfo;
+
+    </script>
+</body>
+</html>

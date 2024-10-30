@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Votação</title>
+    <style>
+       /* Estilos para a página de visualização de votos */
+       body {
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* Estilos da tabela */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007BFF; /* Cor de fundo do cabeçalho */
+        color: white; /* Cor do texto do cabeçalho */
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Cor de fundo das linhas pares */
+    }
+
+    tbody tr:hover {
+        background-color: #eaeaea; /* Cor de fundo ao passar o mouse */
+    }
+
+    /* Grid responsivo para os gráficos */
+    .graficos-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        width: 100%;
+    }
+
+    .grafico-item {
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    canvas {
+        width: 100% !important; /* Responsividade total para o canvas */
+        height: 300px !important;
+    }
+</style>
+</head>
+<body>
+
+<div class="votacao-container">
+    <h2>Progresso dos Votos</h2>
+    <table id="eventos-table">
+        <thead>
+            <tr>
+                <th>Evento</th>
+                <th>Opções de Votação</th>
+            </tr>
+        </thead>
+        <tbody id="eventos-tbody">
+            <!-- As linhas da tabela serão inseridas aqui -->
+        </tbody>
+    </table>
+</div>
+
+<div class="graficos-container" id="graficos-container">
+    <!-- Gráficos serão inseridos aqui -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+function exibirEventos() {
+    const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+    const tbody = document.getElementById('eventos-tbody');
+    const graficosContainer = document.getElementById('graficos-container');
+    tbody.innerHTML = '';
+    graficosContainer.innerHTML = '';
+
+    eventos.forEach((evento, index) => {
+        // Criação da linha na tabela para o evento
+        const tr = document.createElement('tr');
+        const opcoes = evento.opcoes.map(opcao => `<div>${opcao.nome}: ${opcao.votos} votos</div>`).join('');
+        tr.innerHTML = `<td>${evento.nome}</td><td>${opcoes}</td>`;
+        tbody.appendChild(tr);
+
+        // Criação de um contêiner para cada gráfico
+        const graficoItem = document.createElement('div');
+        graficoItem.classList.add('grafico-item');
+        
+        // Adicionando o título do gráfico
+        const tituloGrafico = document.createElement('h3');
+        tituloGrafico.textContent = evento.nome; // Nome do evento como título do gráfico
+        graficoItem.appendChild(tituloGrafico);
+        
+        const canvas = document.createElement('canvas');
+        canvas.id = `grafico-evento-${index}`;
+        graficoItem.appendChild(canvas);
+        graficosContainer.appendChild(graficoItem);
+
+        // Dados para o gráfico do evento
+        const labels = evento.opcoes.map(opcao => opcao.nome);
+        const data = evento.opcoes.map(opcao => opcao.votos);
+
+        // Criação do gráfico de barras com responsividade ativada
+        new Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Votos',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+}
+
+window.onload = exibirEventos;
+</script>
+
+</body>
+</html>

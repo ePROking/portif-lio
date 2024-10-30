@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        
+        input {
+            width: 200px;
+            height: 30px;
+            border-radius: 50px;
+            padding-right: 10px;
+            padding-left: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            border-radius: 50px;
+            padding: 9px 15px;
+            border: none;
+            cursor: pointer;
+            width: 100px;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #228339; /* Muda a cor ao passar o mouse */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Remove espaços entre as células */
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc; /* Adiciona linha separadora entre as linhas */
+        }
+
+        th {
+            background-color: #007bff; /* Cor de fundo do cabeçalho */
+            color: white; /* Cor do texto do cabeçalho */
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; /* Cor de fundo ao passar o mouse nas linhas */
+        }
+
+        /* Estilização dos botões na tabela */
+        td button {
+            background-color: #28a745; /* Cor do botão de atualizar */
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin-right: 5px; /* Espaço entre os botões */
+        }
+
+        td button:last-child {
+            background-color: #dc3545; /* Cor do botão de remover */
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="put">
+<button id="but">Adicionar</button>
+<table id="table" border="1" style="width:100%; margin-top: 10px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Texto</th>
+            <th>Ações</th> <!-- Coluna para ações de atualizar e remover -->
+        </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<script>
+    // Seleciona os elementos do DOM
+    const input = document.getElementById('put');               // Seleciona o campo de entrada
+    const button = document.getElementById('but');              // Seleciona o botão "Adicionar"
+    const tableBody = document.getElementById('tableBody');     // Seleciona o corpo da tabela <tbody>
+
+    let itemToUpdate = null;  // Variável para armazenar a linha da tabela que será atualizada
+    let nextId = 1;  // Variável para gerar IDs únicos
+
+    // Estilos para o input e o botão
+    input.style.width = '200px';
+    input.style.height = '30px';
+    input.style.borderRadius = '50px';
+    input.style.paddingRight = '10px';
+    input.style.paddingLeft = '10px';
+
+    button.style.backgroundColor = 'blue';
+    button.style.color = 'white';
+    button.style.borderRadius = '50px';
+    button.style.padding = '9px';
+    button.style.border = 'none';
+    button.style.cursor = 'pointer';
+    button.style.width = '100px';
+
+    // Evento de clique no botão "Adicionar"
+    button.addEventListener('click', function() {
+        const inputValue = input.value.trim(); // Obtém o valor do campo de entrada sem espaços
+        if (inputValue) {
+            if (itemToUpdate) {
+                // Atualiza o texto da célula na linha da tabela
+                itemToUpdate.cells[1].textContent = inputValue;     // Atualiza a célula de texto
+                itemToUpdate = null;                                // Limpa a referência de atualização
+                button.textContent = 'Adicionar';                   // Volta o texto do botão para "Adicionar"
+            } else {
+                // Adiciona uma nova linha na tabela
+                const row = document.createElement('tr');
+                const idCell = document.createElement('td');
+                const textCell = document.createElement('td');
+                const actionCell = document.createElement('td');    // Célula para os botões de ação
+
+                // Define o conteúdo da célula "ID"
+                idCell.textContent = nextId++;  // Atribui um ID único
+                textCell.textContent = inputValue;  // Define o texto inserido no campo
+
+                // Cria os botões "Atualizar" e "Remover"
+                const updateBtn = document.createElement('button');
+                updateBtn.textContent = 'Atualizar';
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remover';
+
+                // Função para remover a linha da tabela
+                removeBtn.addEventListener('click', function() {
+                    tableBody.removeChild(row); // Remove a linha
+                });
+
+                // Função para preencher o input com o texto da célula e preparar para atualização
+                updateBtn.addEventListener('click', function() {
+                    input.value = textCell.textContent;  // Preenche o input com o texto atual
+                    itemToUpdate = row;  // Armazena a linha que será atualizada
+                    button.textContent = 'Atualizar';  // Muda o texto do botão para "Atualizar"
+                });
+
+                // Adiciona os botões à célula de ações
+                actionCell.appendChild(updateBtn);
+                actionCell.appendChild(removeBtn);
+
+                // Adiciona as células à linha
+                row.appendChild(idCell);
+                row.appendChild(textCell);
+                row.appendChild(actionCell); // Adiciona a célula de ações à linha
+
+                // Adiciona a nova linha ao corpo da tabela
+                tableBody.appendChild(row);
+            }
+
+            // Limpa o campo de entrada após adicionar ou atualizar
+            input.value = '';
+        } else {
+            // Exibe um alerta se o campo de entrada estiver vazio
+            alert('Por favor, insira um valor.');
+        }
+    });
+</script>
+
+    
+
+</body>
+</html>

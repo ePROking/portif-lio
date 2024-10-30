@@ -3,146 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados</title>
+    <title>Visualização de Votos</title>
     <style>
-        /* Estilos para a página de resultados */
+        /* Estilos para a página de visualização de votos */
         body {
-            background-image: url(./img/premium_photo-1661301057249-bd008eebd06a.jpg);
-            background-size: cover;
+            background-color: #f0f0f0;
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .resultados-container {
-            background: transparent;
-            border-radius: 8px;
-            box-shadow: 5px 2px 10px rgba(0, 0, 0, 0.1);
-            border: 0.5px rgb(179, 179, 179) solid;
-            margin: auto;
-            width: 1000px;
-            padding: 20px;
-            height: auto;
-            text-align: center;
-            backdrop-filter: blur(7px);
-            margin-top: 30px;
-        }
+        
+        
 
         h2 {
             margin-bottom: 20px;
             color: #333;
         }
 
-        h3 {
-            margin: 15px 0;
-            color: #007bff;
+        /* Estilos da tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
         }
 
-        p {
-            margin: 5px 0;
-            color: #555;
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF; /* Cor de fundo do cabeçalho */
+            color: white; /* Cor do texto do cabeçalho */
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* Cor de fundo das linhas pares */
+        }
+
+        tbody tr:hover {
+            background-color: #eaeaea; /* Cor de fundo ao passar o mouse */
+        }
+
+
+        /* Grid responsivo para os gráficos */
+        .graficos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .grafico-item {
+            width: 100%;
+            max-width: 100%;
+            text-align: center;
         }
 
         canvas {
-            margin-top: 20px;
-            max-width: 100%;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            margin: 15px 0;
-        }
-
-        button:hover {
-            background-color: #0056b3;
+            width: 100% !important; /* Responsividade total para o canvas */
+            height: 300px!important;
         }
     </style>
 </head>
 <body>
 
-<div class="resultados-container">
-    <h2>Resultados da Votação</h2>
-    <div id="resultados"></div>
-    <canvas id="grafico-resultados" width="400" height="200"></canvas>
-    <button onclick="logout()">Sair</button>
+<div class="votacao-container">
+    <h2>Progresso dos Votos</h2>
+    <table id="eventos-table">
+        <thead>
+            <tr>
+                <th>Evento</th>
+                <th>Opções de Votação</th>
+            </tr>
+        </thead>
+        <tbody id="eventos-tbody">
+            <!-- As linhas da tabela serão inseridas aqui -->
+        </tbody>
+    </table>
+</div>
+
+<div class="graficos-container" id="graficos-container">
+    <!-- Gráficos serão inseridos aqui -->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const username = sessionStorage.getItem('username');
-    if (!username) {
-        window.location.href = 'login.html';
-    }
-
-    function logout() {
-        sessionStorage.removeItem('username');
-        window.location.href = 'login.html';
-    }
-
-    function exibirResultados() {
+    function exibirEventos() {
         const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
-        const resultadosDiv = document.getElementById('resultados');
-        resultadosDiv.innerHTML = '';
+        const tbody = document.getElementById('eventos-tbody');
+        const graficosContainer = document.getElementById('graficos-container');
+        tbody.innerHTML = '';
+        graficosContainer.innerHTML = '';
 
-        eventos.forEach(evento => {
-            const div = document.createElement('div');
-            const opcoesResultados = evento.opcoes.map(opcao => 
-                `<p>${opcao.nome}: ${opcao.votos} votos</p>`
-            ).join('');
-            div.innerHTML = `<h3>${evento.nome}</h3>${opcoesResultados}`;
-            resultadosDiv.appendChild(div);
-        });
+        eventos.forEach((evento, index) => {
+            // Criação da linha na tabela para o evento
+            const tr = document.createElement('tr');
+            const opcoes = evento.opcoes.map(opcao => `<div>${opcao.nome}: ${opcao.votos} votos</div>`).join('');
+            tr.innerHTML = `<td>${evento.nome}</td><td>${opcoes}</td>`;
+            tbody.appendChild(tr);
 
-        exibirGrafico(eventos);
-    }
+            // Criação de um contêiner para cada gráfico
+            const graficoItem = document.createElement('div');
+            graficoItem.classList.add('grafico-item');
+            const canvas = document.createElement('canvas');
+            canvas.id = `grafico-evento-${index}`;
+            graficoItem.appendChild(canvas);
+            graficosContainer.appendChild(graficoItem);
 
-    function exibirGrafico(eventos) {
-        const labels = [];
-        const data = [];
+            // Dados para o gráfico do evento
+            const labels = evento.opcoes.map(opcao => opcao.nome);
+            const data = evento.opcoes.map(opcao => opcao.votos);
 
-        eventos.forEach(evento => {
-            evento.opcoes.forEach(opcao => {
-                labels.push(opcao.nome);
-                data.push(opcao.votos);
-            });
-        });
-
-        const ctx = document.getElementById('grafico-resultados').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Votos',
-                    data: data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            // Criação do gráfico de barras com responsividade ativada
+            new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Votos',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
+            });
         });
     }
 
-    window.onload = exibirResultados;
+    window.onload = exibirEventos;
 </script>
-
 </body>
 </html>
-

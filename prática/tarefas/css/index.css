@@ -1,0 +1,72 @@
+/* Estilo da tabela */
+h1 {
+    text-align: center;
+}
+
+.div {
+    width: 100%;
+}
+
+input {
+    width: 93.2%;    
+}
+
+
+#adi {
+    background-color: #4CAF50;
+    height: 100%;
+  }
+
+  #remo {
+    background-color: #f44336;
+    height: 100%;
+    margin-top: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  /* Estilo básico das tarefas */
+  .task-item {
+    color: blue; /* Cor inicial das tarefas */
+  }
+
+  .completed {
+    color: green; /* Cor das tarefas concluídas */
+    text-decoration: line-through; /* Texto riscado ao completar a tarefa */
+  }
+
+  button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #d32f2f;
+  }
+
+  .update-btn {
+    background-color: #4CAF50; /* Verde para o botão de atualizar */
+  }
+
+  .update-btn:hover {
+    background-color: #45a049;
+  }
+
+  

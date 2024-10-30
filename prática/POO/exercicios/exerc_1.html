@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+
+        console.log("---------------Exercício 1-------------------")
+        const livro = {
+            titulo: "O Senhor dos Anéis",
+            autor: "J.R.R. Tolkien",
+            anoPublicacao: 2005,
+
+            getInfo () {
+                return `O livro "${this.titulo}" foi escrito por ${this.autor} e foi publicado no ano de ${this.anoPublicacao}`;
+            },
+            isClassico () {
+                return this.anoPublicacao < 1990;
+            }
+        };
+        console.log(livro.getInfo());
+        console.log(livro.isClassico());
+
+        console.log("")
+        console.log("---------------Exercício 2-------------------")
+
+        function criarPessoa(nome, idade, profissao) {
+            return {
+                nome: nome,
+                idade: idade,
+                profissao: profissao,
+
+                saudar () {
+                    return `Olá, meu nome é ${this.nome}!`;
+                },
+
+                mostrarInfo() {
+                    return `Meu nome é ${this.nome}, tenho ${this.idade} anos de idade e sou ${this.profissao}`;
+                }
+            };
+        }
+
+        const pessoa1 = criarPessoa("João", 25, "Desenvolvedor");
+        const pessoa2 = criarPessoa("Maria", 30, "Medicina");
+        const pessoa3 = criarPessoa("Pedro", 35, "Engenheiro");
+
+        console.log(pessoa1.saudar())
+        console.log(pessoa3.mostrarInfo())
+
+        console.log("")
+        console.log("---------------Exercício 3-------------------")
+
+        class Produto {
+            constructor(nome, preco, categoria) {
+                this.nome = nome;
+                this.preco = preco;
+                this.categoria = categoria;
+            }
+            aplicarDesconto(percentual) {
+                this.preco = this.preco - (this.preco * (percentual / 100));
+            }
+            mostrarDetalhes() {
+                
+                return `Produto: ${this.nome}, Preço: $${this.preco}, Categoria: ${this.categoria}`;
+            }
+        }
+
+        const produto1 = new Produto("Caneta", 5.99, "Escrita");
+        const produto2 = new Produto("Bugatti Chiron SS300+", 4500000, "Super Desportivo");
+        const produto3 = new Produto("Koenigseg Jesko Absolut", 5000000, "Super Desportivo");
+
+        console.log(produto1.mostrarDetalhes());  
+        produto1.aplicarDesconto(10);             
+        console.log(produto1.mostrarDetalhes());  
+
+        console.log(produto3.mostrarDetalhes());  
+        produto2.aplicarDesconto(15);             
+        console.log(produto2.mostrarDetalhes()); 
+
+        console.log("")
+        console.log("---------------Exercício 4-------------------")
+
+        class produto {  // Alterei o nome de 'produto' para 'Produto' para resolver o conflito.
+            constructor(nome, preco, categoria) {
+                this.nome = nome;
+                this.preco = preco;
+                this.categoria = categoria;
+            }
+
+            aplicarDesconto(percentual) {
+                this.preco = this.preco - (this.preco * (percentual / 100));
+            }
+
+            mostrarDetalhes() {
+                return `Produto: ${this.nome}, Preço: $${this.preco}, Categoria: ${this.categoria}`;
+            }
+        }
+
+        class Eletronico extends Produto {
+            constructor(nome, preco, categoria, garantia) {
+                super(nome, preco, categoria);
+                this.garantia = garantia;
+            }
+
+            mostrarDetalhes() {
+                const detalhesProduto = super.mostrarDetalhes();
+                return `${detalhesProduto}, Garantia: ${this.garantia} anos`;
+            }
+        }
+
+        const eletronico1 = new Eletronico("Smartphone", 200, "Eletrônicos", 2);
+
+        console.log(eletronico1.mostrarDetalhes());  
+        eletronico1.aplicarDesconto(10);             
+        console.log(eletronico1.mostrarDetalhes());
+
+        console.log("")
+        console.log("---------------Exercício 8-------------------")
+        // 8. Gestão de Funcionários e Polimorfismo
+                // Classe Funcionario
+        class Funcionario {
+            constructor(nome, salario) {
+                this.nome = nome;
+                this.salario = salario;
+            }
+        }
+
+        // Classe Departamento
+        class Departamento {
+            constructor() {
+                this.funcionarios = []; // Lista de funcionários
+            }
+
+            // Método para adicionar um funcionário
+            adicionarFuncionario(funcionario) {
+                this.funcionarios.push(funcionario);
+            }
+
+            // Método para remover um funcionário pelo nome
+            removerFuncionario(nome) {
+                this.funcionarios = this.funcionarios.filter(func => func.nome !== nome);
+            }
+
+            // Método para listar todos os funcionários
+            listarFuncionarios() {
+                return this.funcionarios.map(func => `${func.nome} - $${func.salario.toFixed(2)}`);
+            }
+        }
+
+        // Classes que herdam de Funcionario
+        class Desenvolvedor extends Funcionario {
+            constructor(nome, salario, projetoAtual) {
+                super(nome, salario);
+                this.projetoAtual = projetoAtual;
+            }
+        }
+
+        class Designer extends Funcionario {
+            constructor(nome, salario, portifolio) {
+                super(nome, salario);
+                this.portifolio = portifolio;
+            }
+        }
+
+        // Testando o código
+        const departamento = new Departamento();
+        departamento.adicionarFuncionario(new Desenvolvedor("Carlos", 5000, "Projeto X"));
+        departamento.adicionarFuncionario(new Designer("Ana", 4500, "Portfólio Y"));
+
+        console.log("Funcionários no Departamento:");
+        console.log(departamento.listarFuncionarios().join("\n"));
+
+        // Removendo um funcionário
+        departamento.removerFuncionario("Carlos");
+
+        console.log("\nFuncionários após remoção:");
+        console.log(departamento.listarFuncionarios().join("\n"));
+
+        
+
+        
+    </script>
+</body>
+</html>

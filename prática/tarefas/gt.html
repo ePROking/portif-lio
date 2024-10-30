@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" name="evinilson" value="" id="pais">
+    <button id="boton">Save</button>
+
+    <script>
+        // Acessa o input pelo id
+        const pais = document.getElementById("pais");
+
+        // Obtém o valor do atributo 'name'
+        const name = pais.getAttribute("name");  // Vai pegar "evinilson"
+        console.log("Valor do atributo 'name' é :", name);
+
+        // Exemplo de como alterar o atributo 'name'
+        pais.setAttribute("name", "novoNome");
+        console.log("Novo valor do atributo 'name' é :", pais.getAttribute("name"));
+
+        // Verifica se o elemento possui o atributo 'name'
+        if (pais.hasAttribute("name")) {
+            console.log("O elemento tem o atributo 'name'.");
+        } else {
+            console.log("O elemento não tem o atributo 'name'.");
+        }
+        
+        
+        //const pais = getElementById("pais");
+        //const name = pais.getAttribute("evinilson");     //alterar atributos padrão para atributos personalizados
+        //const name = pais.setAttribute("name");   //alterar atributos padrão para atributos personalizados
+        //const name = pais.hasAttribute("name");   //alterar atributos padrão para atributos personalizados
+        
+        //console.log("evinilson");
+
+        const Salvar = document.getElementById("boton");
+
+        Salvar.addEventListener("click", function(){})    //evento escutayh
+        //Salvar.onclick = function(){}
+
+    </script>
+    
+</body>
+</html>

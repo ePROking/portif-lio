@@ -17,7 +17,6 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
-            height: auto;
         }
 
         .votacao-container {
@@ -60,7 +59,6 @@
 
         tbody tr:nth-child(even) {
             background-color: #f9f9f9;
-            width: 50%;
         }
 
         tbody tr:hover {
@@ -87,11 +85,6 @@
 
         button:hover {
             background-color: #0056b3;
-        }
-
-        canvas {
-            margin-top: 20px;
-            max-width: 100%;
         }
 
         .reset-btn {
@@ -123,20 +116,30 @@
     </div>
     <button onclick="logout()">Sair</button>
     <button onclick="registrarVoto()">Registrar Voto</button>
+    <button onclick="irParaResultados()">Ver Resultados</button>
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const username = sessionStorage.getItem('username');
     if (!username) {
-        window.location.href = 'index.html';
+        window.location.href = 'resultados_publico.html';
     }
 
     function logout() {
         sessionStorage.removeItem('username');
-        window.location.href = 'resultados.html';
+        window.location.href = 'resultados_publico.html';
+    }
+
+    function irParaResultados() {
+        const votosUsuarios = JSON.parse(localStorage.getItem('votosUsuarios')) || {};
+        
+        // Verifica se o usuário já votou
+        if (votosUsuarios[username] && Object.keys(votosUsuarios[username]).length > 0) {
+            window.location.href = 'resultados_publico.html'; // Redireciona para a página de resultados
+        } else {
+            alert("Você precisa votar antes de ver os resultados!"); // Mensagem de alerta se não votou
+        }
     }
 
     function exibirEventos() {
@@ -207,47 +210,10 @@
         exibirEventos();
     }
 
-    function exibirGrafico() {
-        const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
-        const labels = [];
-        const data = [];
-
-        eventos.forEach(evento => {
-            evento.opcoes.forEach(opcao => {
-                labels.push(opcao.nome);
-                data.push(opcao.votos);
-            });
-        });
-
-        const ctx = document.getElementById('grafico').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Votos',
-                    data: data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }
-
     window.onload = () => {
         exibirEventos();
-        exibirGrafico();
     }
 </script>
 
 </body>
 </html>
-

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Tabela de Tarefas</title>
+</head>
+<body>
+    <h1>Tabela de Tarefas</h1>
+
+   
+    <!-- Tabela de tarefas -->
+    <table>
+      <thead>
+        <div class="div">
+          <input type="text" id="taskInput" placeholder="Nova tarefa">
+          <button onclick="addTask()" id="adi">Adicionar Tarefa</button>
+          
+        </div>
+        <tr>
+          <th>Tarefa</th>
+          <th>Concluir</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="taskTableBody">
+        <!-- As tarefas serão inseridas aqui -->
+      </tbody>
+    </table>
+    <button onclick="clearTasks()" id="remo">Limpar Todas as Tarefas</button>
+    <script>
+        // Seleciona o campo de entrada e a tabela de tarefas
+        const taskInput = document.getElementById('taskInput');
+        const taskTableBody = document.getElementById('taskTableBody');
+
+        // Função para adicionar nova tarefa
+        function addTask() {
+          const taskText = taskInput.value.trim(); // Obtém o texto da tarefa
+
+          // Verifica se o texto não está vazio
+          if (taskText === '') {
+            alert('Por favor, insira uma tarefa.');
+            return;
+          }
+
+          // Cria uma nova linha da tabela
+          const row = document.createElement('tr');
+
+          // Coluna da tarefa (com texto azul)
+          const taskCell = document.createElement('td');
+          taskCell.classList.add('task-item');
+          taskCell.textContent = taskText;
+
+          // Coluna do checkbox
+          const checkboxCell = document.createElement('td');
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.onclick = function() {
+            // Alterna o estilo da tarefa para 'completada' quando o checkbox for marcado
+            if (checkbox.checked) {
+              taskCell.classList.add('completed');
+            } else {
+              taskCell.classList.remove('completed');
+            }
+          };
+          checkboxCell.appendChild(checkbox);
+
+          // Coluna das ações (botões de remover e atualizar)
+          const actionCell = document.createElement('td');
+
+          // Botão de atualizar
+          const updateButton = document.createElement('button');
+          updateButton.textContent = 'Atualizar';
+          updateButton.classList.add('update-btn');
+          updateButton.onclick = function() {
+            updateTask(taskCell, updateButton);
+          };
+
+          // Botão de remover
+          const removeButton = document.createElement('button');
+          removeButton.textContent = 'Remover';
+          removeButton.onclick = function() {
+            row.remove(); // Remove a linha da tabela
+          };
+
+          actionCell.appendChild(updateButton);
+          actionCell.appendChild(removeButton);
+
+          // Adiciona as células na linha
+          row.appendChild(taskCell);
+          row.appendChild(checkboxCell);
+          row.appendChild(actionCell);
+
+          // Adiciona a linha na tabela
+          taskTableBody.appendChild(row);
+
+          // Limpa o campo de entrada
+          taskInput.value = '';
+        }
+
+        // Função para atualizar uma tarefa
+        function updateTask(taskCell, updateButton) {
+          // Se o botão estiver em modo "Salvar", atualiza a tarefa
+          if (updateButton.textContent === 'Salvar') {
+            const inputField = taskCell.querySelector('input'); // Campo de entrada
+            taskCell.textContent = inputField.value; // Atualiza o texto da tarefa
+            taskCell.classList.add('task-item'); // Mantém a classe de estilo
+            updateButton.textContent = 'Atualizar'; // Muda o botão de volta para "Atualizar"
+          } else {
+            // Transforma o texto da tarefa em um campo de entrada para edição
+            const currentText = taskCell.textContent;
+            taskCell.innerHTML = `<input type="text" value="${currentText}" />`;
+            updateButton.textContent = 'Salvar'; // Muda o botão para "Salvar"
+          }
+        }
+
+        // Função para limpar todas as tarefas
+        function clearTasks() {
+          taskTableBody.innerHTML = ''; // Limpa todas as tarefas da tabela
+        }
+
+        
+    </script>
+    
+</body>
+</html>

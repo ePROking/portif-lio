@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar DIVs com JS</title>
+</head>
+<body>
+    <!-- Criação de 5 divs com a mesma classe -->
+    <div class="box">Div 1</div>
+    <div class="box">Div 2</div>
+    <div class="box">Div 3</div>
+    <div class="box">Div 4</div>
+    <div class="box">Div 5</div>
+
+    <script>
+        // Seleciona todas as divs com a classe 'box'
+        const divs = document.querySelectorAll('.box');
+
+        // Cria arrays com as propriedades desejadas para cada div
+        const cores = ['red', 'blue', 'green', 'yellow', 'purple'];
+        const larguras = ['100px', '150px', '200px', '250px', '300px'];
+        const alturas = ['100px', '120px', '140px', '160px', '180px'];
+
+        // Itera sobre as divs e aplica as propriedades dinamicamente
+        divs.forEach((div, index) => {
+            div.style.backgroundColor = cores[index]; // Aplica cor de fundo
+            div.style.width = larguras[index];        // Define largura
+            div.style.height = alturas[index];        // Define altura
+            div.style.margin = '10px';                // Adiciona margem para separação
+            div.style.color = 'white';                // Cor do texto para contraste
+            div.style.display = 'flex';               // Para alinhar o texto no centro
+            div.style.justifyContent = 'center';      // Centraliza horizontalmente
+            div.style.alignItems = 'center';          // Centraliza verticalmente
+        });
+    </script>
+</body>
+</html>

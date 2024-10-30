@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div>
+        <span>
+            Sou span
+        </span>
+
+        Evinilson Ferreira
+
+        <section>
+            <h1>Sou filho</h1>
+        </section>
+
+    </div>
+
+    <section id="seccao">
+
+    </section>
+
+    <div>
+
+    </div>
+
+
+    <script>
+        const div = document.querySelector('div');  //serve para selecionar uma 'div' ou elemento
+        const Primeiro_filho = div.firstChild;
+        console.log(Primeiro_filho);
+
+        const primeiro_elemento = div.firstElementChild; //para pegar primeiro elemento filho de um pai
+        console.log(primeiro_elemento);
+        
+        const último_filho = div.lastChild;    //para pegar o último filho
+        console.log(último_filho);
+
+        const ultimo_elemento = div.lastElementChild;        //para pegar ultimo elemento filho de um pai
+        console.log(ultimo_elemento);
+
+        const irmao_do_pai = div.nextElementSibling;    //para pegar o irmão do div pai 'section'
+        console.log(irmao_do_pai);
+
+        const irmãos_anteriores = div.previousElementSibling;  //irmãos anteriores do div pai que não tem então é null
+        console.log(irmãos_anteriores);
+
+        const section = document.getElementById('seccao');  //
+        const primeiro_filho = section.firstElementChild;
+        console.log(primeiro_filho)
+        section.innerText = 'primeiro inner'
+
+    </script>
+    
+</body>
+</html>

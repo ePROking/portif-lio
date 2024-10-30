@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getElementsByName Example</title>
+</head>
+<body>
+    <form>
+        <label><input type="radio" name="gender" value="male"> Masculino</label>
+        <label><input type="radio" name="gender" value="female"> Feminino</label>
+        <label><input type="radio" name="gender" value="other"> Outro</label>
+        <button id="submitBtn">Enviar</button>
+    </form>
+
+    <script>
+        // Seleciona todos os botões de rádio com o nome "gender"
+        const radios = document.getElementsByName('gender');
+        
+        // Exemplo: selecionar o primeiro botão de rádio
+        radios[0].checked = true; // Define o primeiro botão como selecionado automaticamente
+
+        // Ao clicar no botão, exibir o valor selecionado
+        document.getElementById('submitBtn').addEventListener('click', function(event) {
+            event.preventDefault(); // Evita o envio do formulário para fins de demonstração
+            let selectedValue = '';
+            radios.forEach(radio => {
+                if (radio.checked) {
+                    selectedValue = radio.value; // Pega o valor do botão selecionado
+                }
+            });
+            alert('Gênero selecionado: ' + selectedValue);
+        });
+    </script>
+</body>
+</html>

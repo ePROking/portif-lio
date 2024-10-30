@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="put">
+    <button id="but">
+        Adicionar
+    </button>
+    <ul id="adic">
+
+    </ul>
+    
+    <div id="myDiv"> 
+            <!-- O conteúdo original do div será substituído pelo JavaScript -->
+    </div>
+
+
+    <script>
+
+    // Seleciona os elementos do DOM
+    const input = document.getElementById('put');    // Seleciona o campo de entrada (input)
+    // Define o estilo do campo de entrada
+    input.style.width = '200px';
+    input.style.height = '30px';
+    input.style.borderRadius = '50px';
+    input.style.paddingRight = '10px';
+    input.style.paddingLeft = '10px';
+
+    const button = document.getElementById('but');   // Seleciona o botão "Adicionar"
+    button.style.backgroundColor = 'blue'
+    button.style.color = 'white'
+    button.style.borderRadius = '50px'
+    button.style.padding = '9px'
+    button.style.border = 'none'
+    button.style.cursor = 'pointer'
+    button.style.width = '100px'
+
+    
+    const ul = document.getElementById('adic');      // Seleciona a lista <ul> onde os itens serão adicionados
+
+    let itemToUpdate = null; // Variável para armazenar o item <li> que será atualizado
+
+    
+
+    // Adiciona um evento de clique ao botão
+    button.addEventListener('click', function() {
+        const inputValue = input.value.trim(); // Obtém o valor do campo de entrada e remove espaços em branco extras
+
+        // Verifica se o campo de entrada não está vazio
+        if (inputValue) {
+            if (itemToUpdate) {
+                // Se houver um item sendo atualizado, muda seu texto
+                itemToUpdate.firstChild.nodeValue = inputValue; // Atualiza apenas o texto do <li> (não os botões)
+
+                // Limpa a referência ao item que estava sendo atualizado
+                itemToUpdate = null;
+
+                // Volta o texto do botão para "Adicionar" após atualizar o item
+                button.textContent = 'Adicionar';
+            } else {
+                // Se não estiver atualizando, cria um novo item <li> com o valor do input
+                const li = document.createElement('li');
+                li.textContent = inputValue; // Define o texto do <li>
+
+                // Chama a função para adicionar os botões de "Remover" e "Atualizar"
+                addButtons(li);
+
+                // Adiciona o novo <li> à lista <ul>
+                ul.appendChild(li);
+            }
+
+            // Limpa o campo de entrada após adicionar ou atualizar
+            input.value = '';
+        } else {
+            // Se o campo de entrada estiver vazio, exibe um alerta
+            alert('Por favor, insira um valor.');
+        }
+    });
+
+    // Função para adicionar os botões "Remover" e "Atualizar" ao item <li>
+    function addButtons(li) {
+        // Cria o botão de remover
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remover'; // Define o texto do botão
+        removeBtn.style.marginLeft = '10px'; // Define um espaçamento para o botão
+
+        // Cria o botão de atualizar
+        const updateBtn = document.createElement('button');
+        updateBtn.textContent = 'Atualizar'; // Define o texto do botão
+        updateBtn.style.marginLeft = '10px'; // Define um espaçamento para o botão
+
+        // Função para remover o item <li> quando o botão "Remover" é clicado
+        removeBtn.addEventListener('click', function() {
+            ul.removeChild(li); // Remove o item <li> da lista <ul>
+        });
+
+        // Função para preencher o campo de entrada com o texto do item <li> quando "Atualizar" é clicado
+        updateBtn.addEventListener('click', function() {
+            input.value = li.firstChild.nodeValue; // Define o valor do campo de entrada com o texto do <li> (somente o texto, sem os botões)
+            itemToUpdate = li; // Armazena o item <li> que será atualizado
+            button.textContent = 'Atualizar'; // Muda o texto do botão para "Atualizar"
+        });
+
+        // Remove todo o conteúdo do <li> para evitar duplicação ao reanexar botões
+        li.innerHTML = li.firstChild.nodeValue;
+
+        // Adiciona os botões "Remover" e "Atualizar" ao <li>
+        li.appendChild(removeBtn);
+        li.appendChild(updateBtn);
+    }
+        //Passo a passo:
+        //Seleção dos elementos HTML:
+
+        //input: O campo onde o usuário digita o texto.
+        //button: O botão que adiciona ou atualiza itens na lista.
+        //ul: A lista (<ul>) onde os itens (<li>) serão inseridos.
+        //Variável itemToUpdate:
+
+        //Esta variável armazena temporariamente o item que está sendo atualizado. Se o valor for null, significa que o botão está em modo "Adicionar". 
+        //Se contiver um item, ele está em modo "Atualizar".
+        //Evento de clique no botão:
+
+        //(Quando o botão é clicado, o valor do campo de entrada é obtido e tratado.
+        //Se itemToUpdate estiver com um item, o botão atualiza o texto do item existente.
+        //Se itemToUpdate for null, um novo item (<li>) é criado e adicionado à lista com botões de remover e atualizar.
+        //Função addButtons:
+
+        //Esta função adiciona dois botões a cada item da lista:
+        //Remover: Remove o item da lista quando clicado.
+        //Atualizar: Insere o texto do item no campo de entrada e altera o botão "Adicionar" para "Atualizar". Ao clicar novamente, o item será atualizado.
+        //Botão "Remover":
+
+        //Remove o item (<li>) da lista.
+        //Botão "Atualizar":
+
+        //Preenche o campo de entrada com o texto do item para ser editado.
+        //Muda o texto do botão para "Atualizar" e, ao ser clicado, atualiza o item com o novo valor inserido no campo.
+
+
+
+        // Seleciona o div pelo id
+        const div = document.getElementById('myDiv');
+
+        // Define a largura, altura e cor de fundo do div usando JavaScript
+        div.style.width = '500px';               // Largura do div
+        div.style.height = '300px';              // Altura do div
+        div.style.backgroundColor = 'red';       // Cor de fundo do div
+        div.style.display = 'flex';               // Usar flexbox para centralizar o conteúdo
+        div.style.justifyContent = 'center';     // Centraliza horizontalmente
+        div.style.alignItems = 'center';         // Centraliza verticalmente
+        div.style.border = '2px solid black';    // Borda para visualizar o div
+        div.style.margin = '0 auto';              // Centraliza o div na página
+        div.style.marginTop = '100px';           // Margem superior para espaço do div
+        div.style.borderRadius = '30px'
+
+        // Cria o elemento <p> dinamicamente
+        const p = document.createElement('p');
+        p.innerHTML = 'Este parágrafo foi adicionado ao centro do div!';
+        p.innerHTML += '<br>Eu sou bom no que faço';
+
+        // Define a cor do texto do parágrafo
+        p.style.color = 'white'; // Define a cor do texto
+        p.style.fontSize = '30px';
+
+        // Adiciona o parágrafo ao div
+        div.appendChild(p);
+
+        // Cria o botão
+        const botao = document.createElement('button'); // Criando o botão
+        botao.innerText = 'Adicionar'; // Texto do botão
+
+        // Define o estilo do botão
+        botao.style.width = '200px';
+        botao.style.height = '50px';
+        botao.style.backgroundColor = 'blue';
+        botao.style.color = 'white'; // Cor do texto do botão
+        botao.style.border = 'none'; // Remove a borda padrão
+        botao.style.cursor = 'pointer'; // Muda o cursor para indicar que é clicável
+        botao.style.display = 'block'; // Para garantir que o botão apareça como um bloco
+        botao.style.borderRadius = '50px'; // Bordas arredondadas
+        botao.style.margin = '0 auto'; // Centraliza o botão na página
+        botao.style.marginTop = '30px'; // Margem superior para o botão
+
+        // Adiciona efeito hover
+        botao.addEventListener('mouseover', function(){
+            botao.style.backgroundColor = 'dark'; // Muda a cor para verde ao passar o mouse
+            botao.style.transform = 'scale(1.2)'; // Aumenta o tamanho do botão
+            botao.style.transition = '0.7s ease'; // Transição suave
+        });
+
+        botao.addEventListener('mouseout', function(){ // Corrigido para usar 'mouseout'
+            botao.style.backgroundColor = 'blue'; // Reverte a cor de fundo
+            botao.style.transform = 'scale(1)'; // Reverte o tamanho do botão
+        });
+
+        // Adiciona o botão ao corpo do documento (fora do div)
+        document.body.appendChild(botao); // Adiciona o botão ao corpo
+    </script>
+</body>
+</html>
